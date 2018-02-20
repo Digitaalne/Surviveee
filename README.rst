@@ -16,7 +16,7 @@ Funktsionaalsus
 - Tegelane laseb hiire asukoha suunas.
 - tegelane saab surma, kui elud saavad otsa.
 - Erinevad relvad.
-	kindel arv kuule.
+kindel arv kuule.
 - Zombid surres kukutavad relvi.
 - Bossid
 
