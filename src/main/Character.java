@@ -1,6 +1,8 @@
 package main;
 
 import javafx.fxml.FXML;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 
 public class Character {
@@ -31,10 +33,20 @@ public class Character {
     {
         character.setX(character.getX() + dx*speed);
         character.setY(character.getY() + dy*speed);
+        //System.out.println(dx+ " " + dy);
     }
 
     public void setDeltas(double dx, double dy) {
         this.dx = dx;
         this.dy = dy;
+    }
+    public void shoot(double x, double y)
+    {
+        System.out.println(x + " " + y);
+        double xDiff = posx - x;
+        double yDiff = posy - y;
+        double angle = Math.toDegrees(Math.atan2(yDiff, xDiff));
+        System.out.println(angle);
+
     }
 }

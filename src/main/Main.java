@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.effect.ImageInput;
 import javafx.scene.image.Image;
@@ -18,6 +19,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+
 
 
 public class Main extends Application {
@@ -44,8 +46,16 @@ public class Main extends Application {
         Image img = new Image("main/mainCharacter.png");
         charRec.setFill(new ImagePattern(img));
         character = new Character(charRec, 3, 500, 500);
+        Canvas canvas = new Canvas();
+        canvas.setHeight(10000);
+        canvas.setWidth(10000);
+        root.getChildren().add(canvas);
         root.getChildren().add(character.getCharacter());
-
+        root.setOnMousePressed(event -> {
+            double x = event.getX();
+            double y = event.getY();
+            character.shoot(x, y);
+        });
         root.setOnKeyPressed(event-> {
             if(event.getCode() == KeyCode.UP)
             {
