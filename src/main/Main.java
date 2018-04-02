@@ -59,19 +59,19 @@ public class Main extends Application {
         root.setOnKeyPressed(event-> {
             if(event.getCode() == KeyCode.UP)
             {
-                character.setDeltas(0, -1);
+                character.setDeltas(character.getDx(), -1);
             }
             if(event.getCode() == KeyCode.DOWN)
             {
-                character.setDeltas(0, 1);
+                character.setDeltas(character.getDx(), 1);
             }
             if(event.getCode() == KeyCode.LEFT)
             {
-                character.setDeltas(-1, 0);
+                character.setDeltas(-1, character.getDy());
             }
             if(event.getCode() == KeyCode.RIGHT)
             {
-                character.setDeltas(1, 0);
+                character.setDeltas(1, character.getDy());
             }
         });
         root.setOnKeyReleased(event -> {

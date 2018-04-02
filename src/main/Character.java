@@ -14,6 +14,15 @@ public class Character {
     }
 
     Rectangle character;
+
+    public double getDx() {
+        return dx;
+    }
+
+    public double getDy() {
+        return dy;
+    }
+
     //Karakterid 50 laius 80px pikkus
     private double dx;
     private double dy;
