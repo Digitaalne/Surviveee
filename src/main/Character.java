@@ -1,6 +1,8 @@
 package main;
 
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
@@ -51,11 +53,55 @@ public class Character {
     }
     public void shoot(double x, double y)
     {
-        System.out.println(x + " " + y);
+        //hiire järgi sihtimine
+        /*System.out.println(x + " " + y);
         double xDiff = posx - x;
         double yDiff = posy - y;
         double angle = Math.toDegrees(Math.atan2(yDiff, xDiff));
-        System.out.println(angle);
+        System.out.println(angle);*/
+    }
+    public void playerDirection()
+    {
+        if (dx == 1 && dy == 1)
+        {
+            Image img = new Image("main/mainCharacter - Copy.png");
+            character.setFill(new ImagePattern(img));
+        }
+        else if(dx == 1 && dy == 0)
+        {
+            Image img = new Image("main/mainCharacter.png");
+            character.setFill(new ImagePattern(img));
+        }
+        else if(dx == 1 && dy == -1)
+        {
+            Image img = new Image("main/mainCharacter - Copy (2).png");
+            character.setFill(new ImagePattern(img));
+        }
+        else if (dx == 0 && dy == 1)
+        {
+            Image img = new Image("main/mainCharacter - Copy (3).png");
+            character.setFill(new ImagePattern(img));
+        }
+        else if(dx == 0 && dy == -1)
+        {
+            Image img = new Image("main/mainCharacter - Copy (4).png");
+            character.setFill(new ImagePattern(img));
+        }
+        else if (dx == -1 && dy == 1)
+        {
+            Image img = new Image("main/mainCharacter - Copy (5).png");
+            character.setFill(new ImagePattern(img));
+        }
+        else if(dx == -1 && dy == 0)
+        {
+            Image img = new Image("main/mainCharacter - Copy (6).png");
+            character.setFill(new ImagePattern(img));
+        }
+        else if(dx == -1 && dy == -1)
+        {
+            Image img = new Image("main/mainCharacter - Copy (7).png");
+            character.setFill(new ImagePattern(img));
+        }
 
     }
 }

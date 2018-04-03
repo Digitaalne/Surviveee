@@ -46,11 +46,13 @@ public class Main extends Application {
         Image img = new Image("main/mainCharacter.png");
         charRec.setFill(new ImagePattern(img));
         character = new Character(charRec, 3, 500, 500);
+        //hiire klikkimiseks
         Canvas canvas = new Canvas();
         canvas.setHeight(10000);
         canvas.setWidth(10000);
         root.getChildren().add(canvas);
         root.getChildren().add(character.getCharacter());
+        //tulistamine
         root.setOnMousePressed(event -> {
             double x = event.getX();
             double y = event.getY();
@@ -81,6 +83,7 @@ public class Main extends Application {
             @Override
             public void handle(long now) {
                 character.move();
+                character.playerDirection();
             }
         }.start();
         character.setDeltas(0,  0);
