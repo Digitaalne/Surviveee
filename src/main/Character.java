@@ -10,31 +10,14 @@ import javafx.scene.shape.Rectangle;
 public class Character {
 
     private int speed;
-
-    public Rectangle getCharacter() {
-        return character;
-    }
-
+    private int health = 100;
+    //Karakteri 50 laius 80px pikkus
     Rectangle character;
-
-    public double getDx() {
-        return dx;
-    }
-
-    public double getDy() {
-        return dy;
-    }
-
-    //Karakterid 50 laius 80px pikkus
     private double dx;
     private double dy;
-    private double posx;
-    private double posy;
 
     public Character(Rectangle character, int speed, int x , int y)
     {
-        this.posx = x;
-        this.posy = y;
         this.character = character;
         this.character.setX(x);
         this.character.setY(y);
@@ -103,5 +86,24 @@ public class Character {
             character.setFill(new ImagePattern(img));
         }
 
+    }
+
+    public double getDx() {
+        return dx;
+    }
+
+    public double getDy() {
+        return dy;
+    }
+    public Rectangle getCharacter() {
+        return character;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 }

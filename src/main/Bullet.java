@@ -11,9 +11,11 @@ public class Bullet {
     Rectangle bulletRect;
     double x;
     double y;
-    public Bullet(Rectangle rect, double x, double y)
+    private int damage;
+    public Bullet(Rectangle rect, double x, double y, int damage)
     {
         this.x = x;
+        this.damage = damage;
         this.y = y;
         bulletRect = rect;
     }
@@ -25,5 +27,9 @@ public class Bullet {
         bulletRect.setHeight(2);
         bulletRect.setWidth(5);
         bulletRect.setFill(Paint.valueOf("blue"));
+    }
+
+    public int getDamage() {
+        return damage;
     }
 }
