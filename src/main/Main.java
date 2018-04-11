@@ -24,7 +24,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Main extends Application {
 
-    private Rectangle charRec;
     private List<Enemy> enemies = new ArrayList<>();
     private List<Bullet> bullets = new ArrayList<>();
     private Character character;
@@ -45,13 +44,8 @@ public class Main extends Application {
         root.setFocusTraversable(true);
         root.requestFocus();
         //ajutine
-        charRec = new Rectangle();
-        charRec.setHeight(80);
-        charRec.setWidth(50);
-        Image img = new Image("main/mainCharacter.png");
-        //
-        charRec.setFill(new ImagePattern(img));
-        character = new Character(charRec, 3, 500, 500);
+
+        character = new Character(3, 500, 500);
         //hiire klikkimiseks
         Canvas canvas = new Canvas();
         canvas.setHeight(10000);
@@ -59,11 +53,11 @@ public class Main extends Application {
         root.getChildren().add(canvas);
         root.getChildren().add(character.getCharacter());
         //tulistamine - mitte enam
-        root.setOnMousePressed(event -> {
+/*        root.setOnMousePressed(event -> {
             double x = event.getX();
             double y = event.getY();
             character.shoot(x, y);
-        });
+        });*/
         //liikumine
         root.setOnKeyPressed(event-> {
             if(event.getCode() == KeyCode.UP)
@@ -82,11 +76,23 @@ public class Main extends Application {
             {
                 character.setDeltas(1, character.getDy());
             }
+            if (event.getCode() == KeyCode.SPACE)
+            {
+                character.shoot(root);
+            }
         });
 
         root.setOnKeyReleased(event -> {
-            character.setDeltas(0, 0);
+            if(event.getCode() == KeyCode.UP)
+                character.setDeltas(character.getDx(), 0);
+            else if(event.getCode() == KeyCode.DOWN)
+                character.setDeltas(character.getDx(), 0);
+            else if(event.getCode() == KeyCode.LEFT)
+                character.setDeltas(0, character.getDy());
+            else if(event.getCode() == KeyCode.RIGHT)
+                character.setDeltas(0, character.getDy());
         });
+
         new AnimationTimer() {
             @Override
             public void handle(long now) {

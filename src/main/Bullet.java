@@ -7,29 +7,32 @@ public class Bullet {
     public Rectangle getBulletRect() {
         return bulletRect;
     }
-
-    Rectangle bulletRect;
+    public enum bulletType{NORMAL}
+    private Rectangle bulletRect;
+    private bulletType bulType;
     double x;
     double y;
     private int damage;
-    public Bullet(Rectangle rect, double x, double y, int damage)
+    public Bullet(bulletType bulType, double x, double y, int damage)
     {
+        this.bulType = bulType;
         this.x = x;
         this.damage = damage;
         this.y = y;
-        bulletRect = rect;
+        if (bulType == bulletType.NORMAL)
+        {
+            bulletRect = new Rectangle();
+            bulletRect.setHeight(2);
+            bulletRect.setWidth(5);
+            bulletRect.setFill(Paint.valueOf("blue"));
+        }
+        bulletRect.setX(x);
+        bulletRect.setY(y);
     }
-    public Bullet(double x, double y)
-    {
-        this.x = x;
-        this.y = y;
-        bulletRect = new Rectangle();
-        bulletRect.setHeight(2);
-        bulletRect.setWidth(5);
-        bulletRect.setFill(Paint.valueOf("blue"));
-    }
+
 
     public int getDamage() {
         return damage;
     }
+
 }
