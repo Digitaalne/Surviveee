@@ -10,13 +10,10 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -78,7 +75,7 @@ public class Main extends Application {
             }
             if (event.getCode() == KeyCode.SPACE)
             {
-                character.shoot(root);
+                character.shoot(this);
             }
         });
 
@@ -102,6 +99,14 @@ public class Main extends Application {
                     e.move();
                     e.moveTowardsCharacter(character.getCharacter().getX(), character.getCharacter().getY());
                     enemiesCollision(e);
+                    zombieDeath(e);
+                }
+                for(Bullet bullet : bullets)
+                {
+                    //bulletite kaotamine
+                    bullet.deleteBulletAfterTime(Main.this);
+                    //System.out.println(bullets.size());
+
                 }
             }
         }.start();
@@ -118,6 +123,11 @@ public class Main extends Application {
         );
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+
+        //UI
+        pointsLabel.setFont(new Font("Racer", 50));
+        pointsLabel.textProperty().bind(points.asString());
+        root.getChildren().add(pointsLabel);
     }
     public void generateEnemies()
     {
@@ -140,6 +150,7 @@ public class Main extends Application {
         for(Bullet bullet : bullets) {
             if (e.getEnemyRect().getBoundsInParent().intersects(bullet.getBulletRect().getBoundsInParent())) {
                 e.setHealth(e.getHealth() - bullet.getDamage());
+                bullet.deleteBullet(Main.this);
             }
         }
 
@@ -148,17 +159,33 @@ public class Main extends Application {
     {
         if (enemy.getHealth()<= 0)
         {
+            List<Enemy> enemies1 = new ArrayList<>(enemies);
             enemy.deathDrop();
-            enemies.remove(enemy);
+            enemies1.remove(enemy);
             root.getChildren().remove(enemy.getEnemyRect());
             if(enemy.getType().equals(Enemy.Type.BASIC))
-                points.add(1);
-            else if(enemy.getType().equals(Enemy.Type.BOSS))
+            {
+                points.setValue(points.get()+1);
+            }
+
+            else if(enemy.getType().equals(Enemy.Type.BOSS)) {
                 points.add(10);
+            }
+            enemies = enemies1;
         }
     }
 
+    public List<Bullet> getBullets() {
+        return bullets;
+    }
+    public void addBullet(Bullet bullet)
+    {
+        bullets.add(bullet);
+    }
 
+    public void setBullets(List<Bullet> bullets) {
+        this.bullets = bullets;
+    }
 
     public static void main(String[] args) {
         launch(args);

@@ -24,9 +24,9 @@ public class Enemy {
         enemyRect.setY(posy);
         enemyRect.setX(posx);
         //ajutine
-        enemyRect.setWidth(10);
-        enemyRect.setHeight(10);
-        enemyRect.setFill(Paint.valueOf("black"));
+        enemyRect.setWidth(50);
+        enemyRect.setHeight(80);
+        enemyRect.setFill(Paint.valueOf("red"));
         //
         speed = 0.5;
     }
@@ -56,6 +56,14 @@ public class Enemy {
         else
         {
             setDeltas(dx, -1);
+        }
+        if(enemyRect.getX() == x)
+        {
+            setDeltas(0, dy);
+        }
+        else if(enemyRect.getY() == y)
+        {
+            setDeltas(dx, 0);
         }
     }
 
