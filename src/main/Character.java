@@ -1,17 +1,21 @@
 package main;
 
 import javafx.scene.Group;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import weapons.Weapon;
 
 public class Character {
 
     //
-    private static int CHARACTER_WIDTH = 50;
-    private static int CHARACTER_LENGTH = 80;
+    public static int CHARACTER_WIDTH = 50;
+    public static int CHARACTER_LENGTH = 80;
+
+
     //
-    enum direction {N, NE, E, SE, S, SW, W, NW}
+    public enum direction {N, NE, E, SE, S, SW, W, NW}
     private direction dir;
     private int speed;
     private int health = 100;
@@ -20,8 +24,11 @@ public class Character {
     private double dx;
     private double dy;
 
-    public Character(int speed, int x , int y)
+    private Weapon weapon;
+
+    public Character(int speed, int x, int y, Weapon weapon)
     {
+        this.weapon = weapon;
         this.speed = speed;
         Rectangle charRec;
         charRec = new Rectangle();
@@ -33,6 +40,7 @@ public class Character {
         this.character.setX(x);
         this.character.setY(y);
         dir = direction.E;
+        this.weapon = weapon;
     }
     public void move()
     {
@@ -45,14 +53,14 @@ public class Character {
         this.dx = dx;
         this.dy = dy;
     }
-    public void shoot(Main main)
+/*    public void shoot(Main main)
     {
         //hiire järgi sihtimine
-        /*System.out.println(x + " " + y);
+        *//*System.out.println(x + " " + y);
         double xDiff = posx - x;
         double yDiff = posy - y;
         double angle = Math.toDegrees(Math.atan2(yDiff, xDiff));
-        System.out.println(angle);*/
+        System.out.println(angle);*//*
         double bulletX = 0;
         double plusx = 0;
         double plusy = 0;
@@ -113,7 +121,7 @@ public class Character {
         Bullet bullet = new Bullet(Bullet.bulletType.NORMAL, bulletX, bulletY,20, plusx, plusy);
         main.addBullet(bullet);
         main.root.getChildren().add(bullet.getBulletRect());
-    }
+    }*/
     public void playerDirection()
     {
         if (dx == 1 && dy == 1)
@@ -166,6 +174,14 @@ public class Character {
         }
 
     }
+    public void deathAndHealth(Label label, Label healthLabel) throws InterruptedException {
+        healthLabel.textProperty().setValue(Integer.toString(health));
+        if (health<=0)
+        {
+            Thread.sleep(1000);
+            label.textProperty().setValue("YOU DIED!");
+        }
+    }
 
     public double getDx() {
         return dx;
@@ -193,4 +209,25 @@ public class Character {
     {
         return character.getY() + CHARACTER_LENGTH/2;
     }
+
+    public Weapon getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
+    }
+
+    public static int getCharacterWidth() {
+        return CHARACTER_WIDTH;
+    }
+
+    public static int getCharacterLength() {
+        return CHARACTER_LENGTH;
+    }
+
+    public direction getDir() {
+        return dir;
+    }
+
 }

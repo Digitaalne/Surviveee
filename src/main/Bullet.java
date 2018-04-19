@@ -25,7 +25,7 @@ public class Bullet {
     private double y;
     private int damage;
     private Timeline timeline = new Timeline();
-    public Bullet(bulletType bulType, double x, double y, int damage, double plusx, double plusy)
+    public Bullet(bulletType bulType, double x, double y, double plusx, double plusy)
     {
         this.bulType = bulType;
         this.x = x;
@@ -37,6 +37,7 @@ public class Bullet {
             bulletRect.setHeight(2);
             bulletRect.setWidth(5);
             bulletRect.setFill(Paint.valueOf("blue"));
+            damage = 20;
         }
         bulletRect.setX(x);
         bulletRect.setY(y);

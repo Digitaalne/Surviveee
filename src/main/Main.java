@@ -14,17 +14,20 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import weapons.Weapon;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 
 public class Main extends Application {
-
+    private Label charHealth = new Label();
     private List<Enemy> enemies = new ArrayList<>();
+    private Label deathText = new Label();
     private List<Bullet> bullets = new ArrayList<>();
     private Character character;
-    Group root;
+    public Group root;
     //punktiosa
     private IntegerProperty points = new SimpleIntegerProperty(0);
     private Label pointsLabel = new Label();
@@ -42,7 +45,7 @@ public class Main extends Application {
         root.requestFocus();
         //ajutine
 
-        character = new Character(3, 500, 500);
+        character = new Character(3, 500, 500, new Weapon(500));
         //hiire klikkimiseks
         Canvas canvas = new Canvas();
         canvas.setHeight(10000);
@@ -75,7 +78,8 @@ public class Main extends Application {
             }
             if (event.getCode() == KeyCode.SPACE)
             {
-                character.shoot(this);
+                character.getWeapon().shoot(Main.this, character);
+                //character.getWeapon().shoot(Main.this, character);
             }
         });
 
@@ -95,6 +99,11 @@ public class Main extends Application {
             public void handle(long now) {
                 character.move();
                 character.playerDirection();
+                try {
+                    character.deathAndHealth(deathText, charHealth);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 for (Enemy e: enemies) {
                     e.move();
                     e.moveTowardsCharacter(character.getCharacter().getX(), character.getCharacter().getY());
@@ -127,7 +136,10 @@ public class Main extends Application {
         //UI
         pointsLabel.setFont(new Font("Racer", 50));
         pointsLabel.textProperty().bind(points.asString());
-        root.getChildren().add(pointsLabel);
+        root.getChildren().addAll(pointsLabel, deathText, charHealth);
+        deathText.setTranslateX(500);
+        deathText.setTranslateY(500);
+        charHealth.setTranslateX(20);
     }
     public void generateEnemies()
     {
