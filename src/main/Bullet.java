@@ -15,7 +15,7 @@ public class Bullet {
     public Rectangle getBulletRect() {
         return bulletRect;
     }
-    public enum bulletType{NORMAL}
+    public enum bulletType{NATO, WINCHESTER, SEVEN_MM, FORTY_FIVE}
     private Rectangle bulletRect;
     private bulletType bulType;
     private double plusx;
@@ -29,21 +29,36 @@ public class Bullet {
     {
         this.bulType = bulType;
         this.x = x;
-        this.damage = damage;
         this.y = y;
-        if (bulType == bulletType.NORMAL)
+        bulletRect = new Rectangle();
+        bulletRect.setHeight(2);
+        bulletRect.setWidth(5);
+        if (bulType == bulletType.SEVEN_MM)
         {
-            bulletRect = new Rectangle();
-            bulletRect.setHeight(2);
-            bulletRect.setWidth(5);
             bulletRect.setFill(Paint.valueOf("blue"));
-            damage = 20;
+            damage = 10;
+        }
+        else if (bulType.equals(bulletType.NATO))
+        {
+            damage = 25;
+            bulletRect.setFill(Paint.valueOf("red"));
+        }
+        else if(bulType.equals(bulletType.FORTY_FIVE))
+        {
+            damage = 15;
+            bulletRect.setFill(Paint.valueOf("cyan"));
+        }
+        else if(bulType.equals(bulletType.WINCHESTER))
+        {
+            damage = 45;
+            bulletRect.setFill(Paint.valueOf("purple"));
         }
         bulletRect.setX(x);
         bulletRect.setY(y);
         this.plusx = plusx;
         this.plusy = plusy;
         fly();
+
     }
     private void fly()
     {

@@ -5,6 +5,7 @@ import javafx.animation.Timeline;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import weapons.Weapon;
 
 import java.util.Random;
 
@@ -84,13 +85,29 @@ public class Enemy {
         timeline.setCycleCount(100);
         timeline.play();
     }
-    public void deathDrop()
+    public void deathDrop(Main main)
     {
         //relvade kukutamine surma korral
         Random random = new Random();
         if(random.nextInt(10) == 9)
         {
-            //generate Weapon
+            Weapon weapon = null;
+            int randm = random.nextInt(3);
+            switch (randm) {
+                case 0:
+                    weapon = (new Weapon(Weapon.guns.RIFLE));
+                    break;
+                case 1:
+                    weapon = (new Weapon(Weapon.guns.SUBMACHINE));
+                    break;
+                case 2:
+                    weapon = new Weapon(Weapon.guns.BOLTACTION);
+                    break;
+            }
+            main.addWeapon(weapon);
+            main.root.getChildren().add(weapon.getWeapRec());
+            weapon.getWeapRec().setX(enemyRect.getX());
+            weapon.getWeapRec().setY(enemyRect.getY());
         }
     }
 

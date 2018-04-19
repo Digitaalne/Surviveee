@@ -26,6 +26,7 @@ public class Main extends Application {
     private List<Enemy> enemies = new ArrayList<>();
     private Label deathText = new Label();
     private List<Bullet> bullets = new ArrayList<>();
+    private List<Weapon> droppedWeapons = new ArrayList<>();
     private Character character;
     public Group root;
     //punktiosa
@@ -45,7 +46,7 @@ public class Main extends Application {
         root.requestFocus();
         //ajutine
 
-        character = new Character(3, 500, 500, new Weapon(500));
+        character = new Character(3, 500, 500, new Weapon(Weapon.guns.RIFLE));
         //hiire klikkimiseks
         Canvas canvas = new Canvas();
         canvas.setHeight(10000);
@@ -124,7 +125,7 @@ public class Main extends Application {
         Timeline timeline = new Timeline();
         timeline.getKeyFrames().add(
                 new KeyFrame(
-                        Duration.seconds(5),
+                        Duration.seconds(1),
                         event -> {
                             generateEnemies();
                         }
@@ -172,7 +173,7 @@ public class Main extends Application {
         if (enemy.getHealth()<= 0)
         {
             List<Enemy> enemies1 = new ArrayList<>(enemies);
-            enemy.deathDrop();
+            enemy.deathDrop(Main.this);
             enemies1.remove(enemy);
             root.getChildren().remove(enemy.getEnemyRect());
             if(enemy.getType().equals(Enemy.Type.BASIC))
@@ -194,6 +195,7 @@ public class Main extends Application {
     {
         bullets.add(bullet);
     }
+    public void addWeapon(Weapon weapon) {}
 
     public void setBullets(List<Bullet> bullets) {
         this.bullets = bullets;
