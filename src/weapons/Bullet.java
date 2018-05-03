@@ -27,7 +27,7 @@ public class Bullet {
     private int damage;
     private Timeline timeline = new Timeline();
 
-    public Bullet(bulletType bulType, double x, double y, double plusx, double plusy) {
+    public Bullet(bulletType bulType, double x, double y, double plusx, double plusy, double rotate) {
         this.bulType = bulType;
         this.x = x;
         this.y = y;
@@ -49,6 +49,7 @@ public class Bullet {
         }
         bulletRect.setX(x);
         bulletRect.setY(y);
+        bulletRect.setRotate(rotate);
         this.plusx = plusx;
         this.plusy = plusy;
         fly();

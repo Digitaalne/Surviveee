@@ -52,27 +52,21 @@ public class Weapon {
             bullets = 250;
             weapRec = new Rectangle(25, 25);
         }
-        //this.bullet = bullet;
     }
 
     public void shoot(Main main, Character character)
     {
-        //hiire järgi sihtimine
-        /*System.out.println(x + " " + y);
-        double xDiff = posx - x;
-        double yDiff = posy - y;
-        double angle = Math.toDegrees(Math.atan2(yDiff, xDiff));
-        System.out.println(angle);*/
         double bulletX = 0;
         double plusx = 0;
         double plusy = 0;
         double bulletY = 0;
-        //ümber teha
+        double rotate = 0;
         if(System.currentTimeMillis() - lastShot >= shootingSpeed && bullets > 0) {
             if (character.getDir().equals(Character.direction.N)) {
                 bulletX = character.getCharacterMidX();
                 bulletY = character.getCharacter().getY();
                 plusy = -1;
+                rotate = 90;
             } else if (character.getDir().equals(Character.direction.E)) {
                 bulletX = character.getCharacter().getX() + Character.CHARACTER_WIDTH;
                 bulletY = character.getCharacterMidY();
@@ -85,33 +79,39 @@ public class Weapon {
                 bulletX = character.getCharacterMidX();
                 bulletY = character.getCharacter().getY() + CHARACTER_LENGTH;
                 plusy = 1;
+                rotate = 90;
             } else if (character.getDir().equals(Character.direction.NE)) {
                 bulletX = character.getCharacter().getX() + Character.CHARACTER_WIDTH;
                 bulletY = character.getCharacter().getY();
                 plusx = 1;
                 plusy = -1;
+                rotate = -45;
             } else if (character.getDir().equals(Character.direction.NW)) {
                 bulletX = character.getCharacter().getX();
                 bulletY = character.getCharacter().getY();
                 plusx = -1;
                 plusy = -1;
+                rotate = 45;
             } else if (character.getDir().equals(Character.direction.SW)) {
                 bulletX = character.getCharacter().getX();
                 bulletY = character.getCharacter().getY() + CHARACTER_LENGTH;
                 plusx = -1;
                 plusy = 1;
+                rotate = -45;
             } else if (character.getDir().equals(Character.direction.SE)) {
                 bulletX = character.getCharacter().getX() + Character.CHARACTER_WIDTH;
                 bulletY = character.getCharacter().getY() + CHARACTER_LENGTH;
                 plusx = 1;
                 plusy = 1;
+                rotate = 45;
             }
-            Bullet bullet = new Bullet(bulletType, bulletX, bulletY, plusx, plusy);
+            Bullet bullet = new Bullet(bulletType, bulletX, bulletY, plusx, plusy, rotate);
             main.addBullet(bullet);
             main.root.getChildren().add(bullet.getBulletRect());
             lastShot = System.currentTimeMillis();
             muzzle(main, bulletX, bulletY);
             bullets--;
+            main.getBulletLabel().textProperty().setValue(Double.toString(bullets).substring(0, Double.toString(bullets).length()-2));
         }
     }
 
