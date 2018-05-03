@@ -1,7 +1,10 @@
 package enemy;
 
+import character.Character;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -16,23 +19,23 @@ public class Enemy {
     public enum Type {BASIC, BOSS}
 
     private double dx;
-    private Type type;
+    Type type;
     private double dy;
-    private double speed;
-    private int damage = 10;
-    private int health = 50;
-
+    double speed;
+    int damage = 10;
+    int health = 50;
+    private Character.direction dir;
     public Enemy(int posx, int posy) {
         this.type = Type.BASIC;
         enemyRect = new Rectangle();
         enemyRect.setY(posy);
         enemyRect.setX(posx);
-        //ajutine
         enemyRect.setWidth(50);
         enemyRect.setHeight(80);
-        enemyRect.setFill(Paint.valueOf("red"));
+        //enemyRect.setFill(Paint.valueOf("red"));
         //
         speed = 0.5;
+        dir = Character.direction.E;
     }
 
     public void move() {
@@ -69,8 +72,6 @@ public class Enemy {
                 new KeyFrame(
                         Duration.millis(1),
                         event -> {
-                            System.out.println(dx);
-                            System.out.println(dy);
                             enemyRect.setX(enemyRect.getX() - dx * 1);
                             enemyRect.setY(enemyRect.getY() - dy * 1);
                         }
@@ -78,6 +79,64 @@ public class Enemy {
         );
         timeline.setCycleCount(100);
         timeline.play();
+    }
+
+    public void zombieDirection() {
+        if (dx == 1 && dy == 1) {
+            Image img = new Image("resources/zombi/SE.png");
+            enemyRect.setFill(new ImagePattern(img));
+            dir = Character.direction.SE;
+        } else if (dx == 1 && dy == 0 ) {
+            Image img = new Image("resources/zombi/right.png");
+            enemyRect.setFill(new ImagePattern(img));
+            dir = Character.direction.E;
+        } else if (dx == 1 && dy == -1 ) {
+            Image img = new Image("resources/zombi/NE.png");
+            enemyRect.setFill(new ImagePattern(img));
+            dir = Character.direction.NE;
+        } else if (dx == 0 && dy == 1 ) {
+            Image img = new Image("resources/zombi/south.png");
+            enemyRect.setFill(new ImagePattern(img));
+            dir = Character.direction.S;
+        } else if (dx == 0 && dy == -1 ) {
+            Image img = new Image("resources/zombi/north.png");
+            enemyRect.setFill(new ImagePattern(img));
+            dir = Character.direction.N;
+        } else if (dx == -1 && dy == 1 ) {
+            Image img = new Image("resources/zombi/SW2.png");
+            enemyRect.setFill(new ImagePattern(img));
+            dir = Character.direction.SW;
+        } else if (dx == -1 && dy == 0) {
+            Image img = new Image("resources/zombi/left.png");
+            enemyRect.setFill(new ImagePattern(img));
+            dir = Character.direction.W;
+        } else if (dx == -1 && dy == -1) {
+            Image img = new Image("resources/zombi/NW.png");
+            enemyRect.setFill(new ImagePattern(img));
+            dir = Character.direction.NW;
+        }
+    }
+    public void beginHit()
+    {
+        Image image= null;
+        if (dir.equals(Character.direction.N)) {
+            image = new Image("resources/zombi/zombi got shot/blody north.png");
+        } else if (dir.equals(Character.direction.E)) {
+            image = new Image("resources/zombi/zombi got shot/blody right.png");
+        } else if (dir.equals(Character.direction.W)) {
+            image = new Image("resources/zombi/zombi got shot/blody left.png");
+        } else if (dir.equals(Character.direction.S)) {
+            image = new Image("resources/zombi/zombi got shot/blody south.png");
+        } else if (dir.equals(Character.direction.NE)) {
+            image = new Image("resources/zombi/zombi got shot/blody NE.png");
+        } else if (dir.equals(Character.direction.NW)) {
+            image = new Image("resources/zombi/zombi got shot/blody NW.png");
+        } else if (dir.equals(Character.direction.SW)) {
+            image = new Image("resources/zombi/zombi got shot/blody SW.png");
+        } else if (dir.equals(Character.direction.SE)) {
+            image = new Image("resources/zombi/zombi got shot/blody SE.png");
+        }
+        enemyRect.setFill(new ImagePattern(image));
     }
 
     public void deathDrop(Main main) {
@@ -102,10 +161,6 @@ public class Enemy {
             weapon.getWeapRec().setX(enemyRect.getX());
             weapon.getWeapRec().setY(enemyRect.getY());
         }
-    }
-
-    public void effect() {
-
     }
 
 

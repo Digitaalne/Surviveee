@@ -4,6 +4,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import main.Main;
+import main.MainMenu;
 import weapons.Weapon;
 
 public class Character {
@@ -54,7 +58,10 @@ public class Character {
      * Current weapon for character.
      */
     private Weapon weapon;
-
+    /**
+     * Instance of class Main
+     */
+    private Main main;
     /**
      *
      * @param speed - speed of character
@@ -62,9 +69,10 @@ public class Character {
      * @param y Coordinate y
      * @param weapon default Weapon you spawn with
      */
-    public Character(int speed, int x, int y, Weapon weapon) {
+    public Character(int speed, int x, int y, Weapon weapon, Main main) {
         this.weapon = weapon;
         this.speed = speed;
+        this.main = main;
         Rectangle charRec;
         charRec = new Rectangle();
         charRec.setHeight(CHARACTER_LENGTH);
@@ -100,35 +108,35 @@ public class Character {
      * Changes player image and direction relative to deltas
      */
     public void playerDirection() {
-        if (dx == 1 && dy == 1) {
+        if (dx == 1 && dy == 1 && dir != direction.SE) {
             Image img = new Image("resources/SE.png");
             character.setFill(new ImagePattern(img));
             dir = direction.SE;
-        } else if (dx == 1 && dy == 0) {
+        } else if (dx == 1 && dy == 0 && dir != direction.E) {
             Image img = new Image("resources/right.png");
             character.setFill(new ImagePattern(img));
             dir = direction.E;
-        } else if (dx == 1 && dy == -1) {
+        } else if (dx == 1 && dy == -1 && dir != direction.NE) {
             Image img = new Image("resources/NE.png");
             character.setFill(new ImagePattern(img));
             dir = direction.NE;
-        } else if (dx == 0 && dy == 1) {
+        } else if (dx == 0 && dy == 1 && dir != direction.S) {
             Image img = new Image("resources/down.png");
             character.setFill(new ImagePattern(img));
             dir = direction.S;
-        } else if (dx == 0 && dy == -1) {
+        } else if (dx == 0 && dy == -1 && dir != direction.N) {
             Image img = new Image("resources/up.png");
             character.setFill(new ImagePattern(img));
             dir = direction.N;
-        } else if (dx == -1 && dy == 1) {
+        } else if (dx == -1 && dy == 1 && dir != direction.SW) {
             Image img = new Image("resources/SW.png");
             character.setFill(new ImagePattern(img));
             dir = direction.SW;
-        } else if (dx == -1 && dy == 0) {
+        } else if (dx == -1 && dy == 0 && dir != direction.W) {
             Image img = new Image("resources/left.png");
             character.setFill(new ImagePattern(img));
             dir = direction.W;
-        } else if (dx == -1 && dy == -1) {
+        } else if (dx == -1 && dy == -1 && dir != direction.NW) {
             Image img = new Image("resources/NW.png");
             character.setFill(new ImagePattern(img));
             dir = direction.NW;
@@ -142,11 +150,12 @@ public class Character {
      * @param healthLabel - Health Label
      * @throws InterruptedException
      */
-    public void deathAndHealth(Label label, Label healthLabel) throws InterruptedException {
+    public void deathAndHealth(Label label, Label healthLabel, Main main) throws InterruptedException {
         healthLabel.textProperty().setValue(Integer.toString(health));
         if (health <= 0) {
-            Thread.sleep(1000);
-            label.textProperty().setValue("YOU DIED!");
+            //label.textProperty().setValue("YOU DIED!");
+            //label.setFont(new Font("Racer", 52));
+            //main.cleanUp();
         }
     }
 
@@ -211,7 +220,7 @@ public class Character {
     }
 
     /**
-     * Set new weapon or add bullets if it is the same weapon
+     * Set new weapon or add bullets if it is the same weapon, also update once the bullets
      * @param weapon new Weapon
      */
     public void setWeapon(Weapon weapon) {
@@ -220,6 +229,8 @@ public class Character {
         } else {
             this.weapon = weapon;
         }
+        main.getBulletLabel().textProperty().setValue(Double.toString(weapon.getBullets()).substring(0,
+                Double.toString(weapon.getBullets()).length()-2));
     }
 
     /**
