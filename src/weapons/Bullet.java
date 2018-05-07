@@ -11,26 +11,53 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bullet {
-    public Rectangle getBulletRect() {
-        return bulletRect;
-    }
 
+    /**
+     * different types of bullets
+     */
     public enum bulletType {NATO, WINCHESTER, SEVEN_MM, FORTY_FIVE}
 
+    /**
+     * Rectangle of bullet
+     */
     private Rectangle bulletRect;
+    /**
+     * bullet Type
+     */
     private bulletType bulType;
+    /**
+     * delta x
+     */
     private double plusx;
+    /**
+     * delta y
+     */
     private double plusy;
+    /**
+     * the speed of the bullet
+     */
     private static double SPEED = 5;
-    private double x;
-    private double y;
+    /**
+     * the damage of the bullet
+     */
     private int damage;
+    /**
+     * timeline for moving
+     */
     private Timeline timeline = new Timeline();
 
+    /**
+     *
+     * @param bulType - The bullet type
+     * @param x - x coordinate, where to create
+     * @param y - y coordinate, where to create
+     * @param plusx - delta x for bullet moving
+     * @param plusy - delta y for bullet moving
+     * @param rotate - rotation of bullet
+     */
     public Bullet(bulletType bulType, double x, double y, double plusx, double plusy, double rotate) {
         this.bulType = bulType;
-        this.x = x;
-        this.y = y;
+
         bulletRect = new Rectangle();
         bulletRect.setHeight(2);
         bulletRect.setWidth(5);
@@ -56,6 +83,9 @@ public class Bullet {
 
     }
 
+    /**
+     * The bullet flight
+     */
     private void fly() {
         timeline.getKeyFrames().add(
                 new KeyFrame(
@@ -71,12 +101,20 @@ public class Bullet {
 
     }
 
+    /**
+     * delete bullet after some Timeline has stopped
+     * @param main Main class
+     */
     public void deleteBulletAfterTime(Main main) {
         if (timeline.getStatus().equals(Timeline.Status.STOPPED)) {
             deleteBullet(main);
         }
     }
 
+    /**
+     * Delete bullet after collision
+     * @param main Main class
+     */
     public void deleteBullet(Main main) {
         List<Bullet> bullets = new ArrayList<>(main.getBullets());
         bullets.remove(this);
@@ -84,12 +122,28 @@ public class Bullet {
         main.setBullets(bullets);
     }
 
+    /**
+     *
+     * @return the bullet's Timeline
+     */
     public Timeline getTimeline() {
         return timeline;
     }
 
+    /**
+     *
+     * @return the damage of the bullet
+     */
     public int getDamage() {
         return damage;
+    }
+
+    /**
+     *
+     * @return Bullet Rectangle
+     */
+    public Rectangle getBulletRect() {
+        return bulletRect;
     }
 
 }

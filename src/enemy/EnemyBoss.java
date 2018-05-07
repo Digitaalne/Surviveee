@@ -3,6 +3,11 @@ package enemy;
 import javafx.scene.shape.Rectangle;
 
 public class EnemyBoss extends Enemy {
+    /**
+     * creation of enemy pos
+     * @param posx creation coordinate x
+     * @param posy creation coordinate y
+     */
     public EnemyBoss(int posx, int posy) {
         super(posx, posy);
         this.type = Type.BOSS;

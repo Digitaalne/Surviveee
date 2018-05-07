@@ -9,7 +9,6 @@ import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Group;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.text.Font;
@@ -27,24 +26,65 @@ import static character.Character.CHARACTER_WIDTH;
 
 
 public class Main {
+    /**
+     * The label of characters health
+     */
     private Label charHealth = new Label();
+    /**
+     * List of alive enemies.
+     */
     private List<Enemy> enemies = new ArrayList<>();
+    /**
+     * Label of death text
+     */
     private Label deathText = new Label();
+    /**
+     * List of flying bullets
+     */
     private List<Bullet> bullets = new ArrayList<>();
+    /**
+     * List of current dropped weapons on the floore
+     */
     private List<Weapon> droppedWeapons = new ArrayList<>();
+    /**
+     * The main character
+     */
     private Character character;
+    /**
+     * The Group
+     */
     public Group root = new Group();
     //punktiosa
+    /**
+     * Points what player has achieved
+     */
     private IntegerProperty points = new SimpleIntegerProperty(0);
+    /**
+     * label for points
+     */
     private Label pointsLabel = new Label();
+    /**
+     * main menu instance
+     */
     private MainMenu mainMenu;
+    /**
+     * Bullets amount label
+     */
     private Label bulletLabel = new Label();
 
+    /**
+     * The instance of Main
+     * @param mainMenu the instance of Main Menu
+     */
     public Main(MainMenu mainMenu)
     {
         this.mainMenu = mainMenu;
     }
 
+    /**
+     * Start procedure and the "brain"
+     * @param hardness the difficulty level
+     */
     public void starterino(int hardness) {
 
         root.setFocusTraversable(true);
@@ -161,6 +201,9 @@ public class Main {
         bulletLabel.setLayoutY(500);
     }
 
+    /**
+     * Generate enemies
+     */
     public void generateEnemies() {
         Random dir = new Random();
         int dir1 = dir.nextInt(4);
@@ -216,6 +259,10 @@ public class Main {
         root.getChildren().add(enemy.getEnemyRect());
     }
 
+    /**
+     * Checks collision for zombies
+     * @param e - enemy instance
+     */
     public void enemiesCollision(Enemy e) {
 
         //Kui inimene saab pihta zombiga
@@ -234,6 +281,10 @@ public class Main {
 
     }
 
+    /**
+     * Zombies death procedure
+     * @param enemy - enemy instance
+     */
     public void zombieDeath(Enemy enemy) {
         if (enemy.getHealth() <= 0) {
             List<Enemy> enemies1 = new ArrayList<>(enemies);
@@ -248,6 +299,10 @@ public class Main {
             enemies = enemies1;
         }
     }
+
+    /**
+     * Wipes all the lists and info
+     */
     public void cleanUp()
     {
      droppedWeapons = new ArrayList<>();
@@ -259,26 +314,50 @@ public class Main {
      mainMenu.cleanUp();
     }
 
+    /**
+     *
+     * @return The active bullets list
+     */
     public List<Bullet> getBullets() {
         return bullets;
     }
 
+    /**
+     * Add bullets to the list
+     * @param bullet Bullet instance
+     */
     public void addBullet(Bullet bullet) {
         bullets.add(bullet);
     }
 
+    /**
+     * Adds dropped weapon the to list
+     * @param weapon Weapon instance
+     */
     public void addWeapon(Weapon weapon) {
         droppedWeapons.add(weapon);
     }
 
+    /**
+     * Sets Bullet list
+     * @param bullets Bullet List
+     */
     public void setBullets(List<Bullet> bullets) {
         this.bullets = bullets;
     }
 
+    /**
+     *
+     * @return Main menu instance
+     */
     public MainMenu getMainMenu() {
         return mainMenu;
     }
 
+    /**
+     *
+     * @return label of Bullet amount
+     */
     public Label getBulletLabel() {
         return bulletLabel;
     }

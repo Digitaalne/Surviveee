@@ -6,10 +6,26 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class MainMenu extends Application {
+    /**
+     * The instance of main menu scene
+     */
     private Scene scene;
+    /**
+     * The instance of Main
+     */
     private Main main;
+    /**
+     * The stage
+     */
     private Stage stage;
+    /**
+     * Game scene
+     */
     private Scene scene2;
+
+    /**
+     * Starts the game and shows the menu
+     */
     @Override
     public void start(Stage stage){
         Button ezBtn = new Button();
@@ -47,13 +63,25 @@ public class MainMenu extends Application {
         stage.show();
     }
 
+    /**
+     *
+     * @return Main menu Scene
+     */
     public Scene getScene() {
         return scene;
     }
 
+    /**
+     *
+     * @return Stage
+     */
     public Stage getStage() {
         return stage;
     }
+
+    /**
+     * Cleans up and creates new main
+     */
     public void cleanUp()
     {
         stage.setScene(scene);

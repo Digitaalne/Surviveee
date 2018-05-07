@@ -12,13 +12,41 @@ import static character.Character.CHARACTER_LENGTH;
 
 public class Weapon {
     //private Bullet bullet;
+
+    /**
+     * Enum for different kind of weapons
+     */
     public enum guns {PISTOL, RIFLE, SUBMACHINE, BOLTACTION}
+
+    /**
+     * The speed how fast gun can shoot, the lower the better
+     */
     private double shootingSpeed;
+    /**
+     * Timestamp for last shot made
+     */
     private double lastShot = 0;
+    /**
+     * bullet amount
+     */
     private double bullets;
+    /**
+     * Rectangle of Weapon
+     */
     private Rectangle weapRec;
+    /**
+     * Bullet type
+     */
     private Bullet.bulletType bulletType;
+    /**
+     * this weapon type
+     */
     private guns gun;
+
+    /**
+     * creation of gun
+     * @param gun Gun type
+     */
     public Weapon(guns gun)
     {
         this.gun = gun;
@@ -54,6 +82,11 @@ public class Weapon {
         }
     }
 
+    /**
+     * The shooting action
+     * @param main Main class
+     * @param character Main character
+     */
     public void shoot(Main main, Character character)
     {
         double bulletX = 0;
@@ -115,21 +148,44 @@ public class Weapon {
         }
     }
 
+    /**
+     *
+     * @return Weapon Rectangle
+     */
     public Rectangle getWeapRec() {
         return weapRec;
     }
 
+    /**
+     *
+     * @return this gun type
+     */
     public guns getGun() {
         return gun;
     }
 
+    /**
+     *
+     * @return amount of the bullets
+     */
     public double getBullets() {
         return bullets;
     }
 
+    /**
+     * Set the bullet amount
+     * @param bullets amount of bullets
+     */
     public void setBullets(double bullets) {
         this.bullets = bullets;
     }
+
+    /**
+     * Creates muzzle for the gun.
+     * @param main Main class
+     * @param x coordinate x
+     * @param y coordinate y
+     */
     public void muzzle(Main main, double x, double y)
     {
         Rectangle rect = new Rectangle(10, 10);

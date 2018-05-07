@@ -5,7 +5,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import main.Main;
@@ -14,22 +13,57 @@ import weapons.Weapon;
 import java.util.Random;
 
 public class Enemy {
+    /**
+     * Rectangle of enemy
+     */
     Rectangle enemyRect;
 
+    /**
+     * the type of zombie enum
+     */
     public enum Type {BASIC, BOSS}
 
+    /**
+     * delta x of zombie
+     */
     private double dx;
+    /**
+     * zombie Type
+     */
     Type type;
+    /**
+     * Delta y of zombie
+     */
     private double dy;
+    /**
+     * the movement speed of zombie
+     */
     double speed;
-    int damage = 10;
-    int health = 50;
+    /**
+     * the damage that zombie makes
+     */
+    int damage;
+    /**
+     * zombies health
+     */
+    int health;
+    /**
+     * Current moving direction of zombie
+     */
     private Character.direction dir;
+
+    /**
+     * Creation of zombie
+     * @param posx x coordinate
+     * @param posy y coordinate
+     */
     public Enemy(int posx, int posy) {
         this.type = Type.BASIC;
         enemyRect = new Rectangle();
         enemyRect.setY(posy);
         enemyRect.setX(posx);
+        health = 50;
+        damage = 10;
         enemyRect.setWidth(50);
         enemyRect.setHeight(80);
         //enemyRect.setFill(Paint.valueOf("red"));
@@ -38,16 +72,29 @@ public class Enemy {
         dir = Character.direction.E;
     }
 
+    /**
+     * moves the zombie depending on deltas
+     */
     public void move() {
         enemyRect.setX(enemyRect.getX() + dx * speed);
         enemyRect.setY(enemyRect.getY() + dy * speed);
     }
 
+    /**
+     * Set deltas
+     * @param dx x delta
+     * @param dy y delta
+     */
     public void setDeltas(double dx, double dy) {
         this.dx = dx;
         this.dy = dy;
     }
 
+    /**
+     * Picks direction towards character
+     * @param x character Rectangle x
+     * @param y Character Rectangle Y
+     */
     public void moveTowardsCharacter(double x, double y) {
         if (enemyRect.getX() < x) {
             setDeltas(1, dy);
@@ -66,6 +113,9 @@ public class Enemy {
         }
     }
 
+    /**
+     * Pushes zombie back
+     */
     public void pushBack() {
         Timeline timeline = new Timeline();
         timeline.getKeyFrames().add(
@@ -81,6 +131,9 @@ public class Enemy {
         timeline.play();
     }
 
+    /**
+     * Changes the pictures and says which way zombie is really going.
+     */
     public void zombieDirection() {
         if (dx == 1 && dy == 1) {
             Image img = new Image("resources/zombi/SE.png");
@@ -116,6 +169,10 @@ public class Enemy {
             dir = Character.direction.NW;
         }
     }
+
+    /**
+     * Changes zombie Rectangle picture if he gets hit with bullets
+     */
     public void beginHit()
     {
         Image image= null;
@@ -139,6 +196,10 @@ public class Enemy {
         enemyRect.setFill(new ImagePattern(image));
     }
 
+    /**
+     * Drops the weapon on the floor if luck is on players side
+     * @param main Main class
+     */
     public void deathDrop(Main main) {
         //relvade kukutamine surma korral
         Random random = new Random();
@@ -163,31 +224,59 @@ public class Enemy {
         }
     }
 
+    /**
+     *
+     * @return Enemy Rectangle
+     */
 
     public Rectangle getEnemyRect() {
         return enemyRect;
     }
 
+    /**
+     *
+     * @return Zombie damage
+     */
     public int getDamage() {
         return damage;
     }
 
+    /**
+     *
+     * @return Zombies health
+     */
     public int getHealth() {
         return health;
     }
 
+    /**
+     * Sets zombies health to ...
+     * @param health health amount
+     */
     public void setHealth(int health) {
         this.health = health;
     }
 
+    /**
+     *
+     * @return zombie delta x
+     */
     public double getDx() {
         return dx;
     }
 
+    /**
+     *
+     * @return zombie delta y
+     */
     public double getDy() {
         return dy;
     }
 
+    /**
+     *
+     * @return Zombie Type
+     */
     public Type getType() {
         return type;
     }
