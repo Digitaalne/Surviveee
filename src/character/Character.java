@@ -21,6 +21,12 @@ public class Character {
      */
     public static int CHARACTER_LENGTH = 80;
 
+    /**
+     * For tests
+     */
+    public Character() {
+    }
+
 
     /**
      *  8 possible directions where character can move.
@@ -57,7 +63,7 @@ public class Character {
     /**
      * Current weapon for character.
      */
-    private Weapon weapon;
+    Weapon weapon;
     /**
      * Instance of class Main
      */
@@ -83,7 +89,6 @@ public class Character {
         this.character.setX(x);
         this.character.setY(y);
         dir = direction.E;
-        this.weapon = weapon;
     }
 
     /**
@@ -153,9 +158,9 @@ public class Character {
     public void deathAndHealth(Label label, Label healthLabel, Main main) throws InterruptedException {
         healthLabel.textProperty().setValue(Integer.toString(health));
         if (health <= 0) {
-            //label.textProperty().setValue("YOU DIED!");
-            //label.setFont(new Font("Racer", 52));
-            //main.cleanUp();
+            label.textProperty().setValue("YOU DIED!");
+            label.setFont(new Font("Racer", 52));
+            main.cleanUp();
         }
     }
 
