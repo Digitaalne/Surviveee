@@ -18,6 +18,8 @@ public class Enemy {
      */
     Rectangle enemyRect;
 
+
+
     /**
      * the type of zombie enum
      */
@@ -279,5 +281,11 @@ public class Enemy {
      */
     public Type getType() {
         return type;
+    }
+
+    /**
+     * For testing purposes
+     */
+    public Enemy() {
     }
 }

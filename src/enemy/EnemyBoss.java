@@ -20,4 +20,11 @@ public class EnemyBoss extends Enemy {
         health = 100;
         damage = 20;
     }
+
+    /**
+     * For testing purposes
+     */
+    public EnemyBoss()
+    {
+    }
 }

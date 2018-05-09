@@ -89,7 +89,7 @@ public class Main {
 
         root.setFocusTraversable(true);
         root.requestFocus();
-        character = new Character(3, 500, 500, new Weapon(Weapon.guns.RIFLE), Main.this);
+        character = new Character(3, 500, 500, new Weapon(Weapon.guns.PISTOL), Main.this);
         root.getChildren().add(character.getCharacter());
         root.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.UP && character.getCharacter().getY() > 0) {
