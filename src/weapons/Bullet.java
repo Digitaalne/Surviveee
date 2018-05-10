@@ -65,13 +65,13 @@ public class Bullet {
             bulletRect.setFill(Paint.valueOf("blue"));
             damage = 10;
         } else if (bulType.equals(bulletType.NATO)) {
-            damage = 25;
+            damage = 35;
             bulletRect.setFill(Paint.valueOf("red"));
         } else if (bulType.equals(bulletType.FORTY_FIVE)) {
-            damage = 15;
+            damage = 5;
             bulletRect.setFill(Paint.valueOf("cyan"));
         } else if (bulType.equals(bulletType.WINCHESTER)) {
-            damage = 45;
+            damage = 50;
             bulletRect.setFill(Paint.valueOf("purple"));
         }
         bulletRect.setX(x);
