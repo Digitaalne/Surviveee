@@ -28,7 +28,7 @@ public class Enemy {
     /**
      * delta x of zombie
      */
-    private double dx;
+    double dx;
     /**
      * zombie Type
      */
@@ -36,7 +36,7 @@ public class Enemy {
     /**
      * Delta y of zombie
      */
-    private double dy;
+    double dy;
     /**
      * the movement speed of zombie
      */
@@ -52,7 +52,7 @@ public class Enemy {
     /**
      * Current moving direction of zombie
      */
-    private Character.direction dir;
+    Character.direction dir;
 
     /**
      * Creation of zombie

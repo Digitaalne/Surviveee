@@ -2,6 +2,8 @@ package weapons;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import character.Character;
@@ -56,29 +58,33 @@ public class Weapon {
             bullets = Double.POSITIVE_INFINITY;
             shootingSpeed = 500;
             bullets = Double.POSITIVE_INFINITY;
-            weapRec = new Rectangle(10, 10);
+            weapRec = new Rectangle(45, 34);
+            weapRec.setFill(new ImagePattern(new Image("resources/weapons/45x34 pistol.png")));
         }
         else if (gun.equals(guns.BOLTACTION))
         {
             bulletType = Bullet.bulletType.WINCHESTER;
             shootingSpeed = 1250;
             bullets = 10;
-            weapRec = new Rectangle(75, 50);
+            weapRec = new Rectangle(102, 46);
+            weapRec.setFill(new ImagePattern(new Image("resources/weapons/102x46sniper.png")));
 
         }
         else if (gun.equals(guns.RIFLE))
         {
             bulletType = Bullet.bulletType.NATO;
             shootingSpeed = 450;
-            bullets = 100;
-            weapRec = new Rectangle(75, 25);
+            bullets = 25;
+            weapRec = new Rectangle(60, 40);
+            weapRec.setFill(new ImagePattern(new Image("resources/weapons/60x40 ak47.png")));
         }
         else if( gun.equals(guns.SUBMACHINE))
         {
             bulletType = Bullet.bulletType.FORTY_FIVE;
             shootingSpeed = 100;
-            bullets = 250;
-            weapRec = new Rectangle(25, 25);
+            bullets = 50;
+            weapRec = new Rectangle(45, 40);
+            weapRec.setFill(new ImagePattern(new Image("resources/weapons/45x40uzi.png")));
         }
     }
 
@@ -203,5 +209,9 @@ public class Weapon {
         );
         timeline.setCycleCount(1);
         timeline.play();
+    }
+
+    public double getShootingSpeed() {
+        return shootingSpeed;
     }
 }

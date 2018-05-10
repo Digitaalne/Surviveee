@@ -10,7 +10,9 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import weapons.Bullet;
@@ -26,6 +28,10 @@ import static character.Character.CHARACTER_WIDTH;
 
 
 public class Main {
+    /**
+     * background of game
+     */
+    private ImageView backGround = new ImageView("resources/background.png");
     /**
      * The label of characters health
      */
@@ -54,7 +60,6 @@ public class Main {
      * The Group
      */
     public Group root = new Group();
-    //punktiosa
     /**
      * Points what player has achieved
      */
@@ -67,6 +72,10 @@ public class Main {
      * main menu instance
      */
     private MainMenu mainMenu;
+    /**
+     * Image of your current gun
+     */
+    private Rectangle currentGun = new Rectangle(45, 30);
     /**
      * Bullets amount label
      */
@@ -89,8 +98,7 @@ public class Main {
 
         root.setFocusTraversable(true);
         root.requestFocus();
-        character = new Character(3, 500, 500, new Weapon(Weapon.guns.PISTOL), Main.this);
-        root.getChildren().add(character.getCharacter());
+        character = new Character(3, 500, 500, new Weapon(Weapon.guns.BOLTACTION), Main.this);
         root.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.UP && character.getCharacter().getY() > 0) {
                 character.setDeltas(character.getDx(), -1);
@@ -193,12 +201,16 @@ public class Main {
         //UI
         pointsLabel.setFont(new Font("Racer", 50));
         pointsLabel.textProperty().bind(points.asString());
-        root.getChildren().addAll(pointsLabel, deathText, charHealth, bulletLabel);
+        root.getChildren().addAll(backGround, character.getCharacter(),
+                pointsLabel, deathText, charHealth, bulletLabel, currentGun);
         deathText.setTranslateX(500);
         deathText.setTranslateY(500);
         charHealth.setTranslateX(20);
         bulletLabel.setLayoutX(500);
         bulletLabel.setLayoutY(500);
+        currentGun.setFill(character.getWeapon().getWeapRec().getFill());
+        currentGun.setY(500);
+        currentGun.setX(500);
     }
 
     /**
@@ -360,5 +372,9 @@ public class Main {
      */
     public Label getBulletLabel() {
         return bulletLabel;
+    }
+
+    public void setCurrentGun(Rectangle currentGun) {
+        this.currentGun.setFill(currentGun.getFill());
     }
 }

@@ -5,9 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import main.Main;
-import main.MainMenu;
 import weapons.Weapon;
 
 public class Character {
@@ -83,7 +81,7 @@ public class Character {
         charRec = new Rectangle();
         charRec.setHeight(CHARACTER_LENGTH);
         charRec.setWidth(CHARACTER_WIDTH);
-        Image img = new Image("resources/right.png");
+        Image img = new Image("resources/main character/right.png");
         charRec.setFill(new ImagePattern(img));
         this.character = charRec;
         this.character.setX(x);
@@ -114,35 +112,35 @@ public class Character {
      */
     public void playerDirection() {
         if (dx == 1 && dy == 1 && dir != direction.SE) {
-            Image img = new Image("resources/SE.png");
+            Image img = new Image("resources/main character/SE.png");
             character.setFill(new ImagePattern(img));
             dir = direction.SE;
         } else if (dx == 1 && dy == 0 && dir != direction.E) {
-            Image img = new Image("resources/right.png");
+            Image img = new Image("resources/main character/right.png");
             character.setFill(new ImagePattern(img));
             dir = direction.E;
         } else if (dx == 1 && dy == -1 && dir != direction.NE) {
-            Image img = new Image("resources/NE.png");
+            Image img = new Image("resources/main character/NE.png");
             character.setFill(new ImagePattern(img));
             dir = direction.NE;
         } else if (dx == 0 && dy == 1 && dir != direction.S) {
-            Image img = new Image("resources/down.png");
+            Image img = new Image("resources/main character/down.png");
             character.setFill(new ImagePattern(img));
             dir = direction.S;
         } else if (dx == 0 && dy == -1 && dir != direction.N) {
-            Image img = new Image("resources/up.png");
+            Image img = new Image("resources/main character/up.png");
             character.setFill(new ImagePattern(img));
             dir = direction.N;
         } else if (dx == -1 && dy == 1 && dir != direction.SW) {
-            Image img = new Image("resources/SW.png");
+            Image img = new Image("resources/main character/SW.png");
             character.setFill(new ImagePattern(img));
             dir = direction.SW;
         } else if (dx == -1 && dy == 0 && dir != direction.W) {
-            Image img = new Image("resources/left.png");
+            Image img = new Image("resources/main character/left.png");
             character.setFill(new ImagePattern(img));
             dir = direction.W;
         } else if (dx == -1 && dy == -1 && dir != direction.NW) {
-            Image img = new Image("resources/NW.png");
+            Image img = new Image("resources/main character/NW.png");
             character.setFill(new ImagePattern(img));
             dir = direction.NW;
         }
@@ -234,8 +232,9 @@ public class Character {
         } else {
             this.weapon = weapon;
         }
-        main.getBulletLabel().textProperty().setValue(Double.toString(weapon.getBullets()).substring(0,
-                Double.toString(weapon.getBullets()).length()-2));
+        main.getBulletLabel().textProperty().setValue(Double.toString(this.weapon.getBullets()).substring(0,
+                Double.toString(this.weapon.getBullets()).length()-2));
+        main.setCurrentGun(this.weapon.getWeapRec());
     }
 
     /**
@@ -243,8 +242,9 @@ public class Character {
      */
     public void bulletZeroCheck() {
         if (weapon.getBullets() <= 0) {
-            weapon = new Weapon(Weapon.guns.PISTOL);
+            setWeapon(new Weapon(Weapon.guns.PISTOL));
         }
+
     }
 
 
