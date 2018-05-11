@@ -81,8 +81,8 @@ public class Weapon {
         else if( gun.equals(guns.SUBMACHINE))
         {
             bulletType = Bullet.bulletType.FORTY_FIVE;
-            shootingSpeed = 100;
-            bullets = 50;
+            shootingSpeed = 200;
+            bullets = 100;
             weapRec = new Rectangle(45, 40);
             weapRec.setFill(new ImagePattern(new Image("resources/weapons/45x40uzi.png")));
         }
@@ -100,12 +100,14 @@ public class Weapon {
         double plusy = 0;
         double bulletY = 0;
         double rotate = 0;
+        double flip = 1;
         if(System.currentTimeMillis() - lastShot >= shootingSpeed && bullets > 0) {
             if (character.getDir().equals(Character.direction.N)) {
                 bulletX = character.getCharacterMidX();
                 bulletY = character.getCharacter().getY();
                 plusy = -1;
                 rotate = 90;
+                flip = -1;
             } else if (character.getDir().equals(Character.direction.E)) {
                 bulletX = character.getCharacter().getX() + Character.CHARACTER_WIDTH;
                 bulletY = character.getCharacterMidY();
@@ -114,6 +116,7 @@ public class Weapon {
                 bulletX = character.getCharacter().getX();
                 bulletY = character.getCharacterMidY();
                 plusx = -1;
+                flip = -1;
             } else if (character.getDir().equals(Character.direction.S)) {
                 bulletX = character.getCharacterMidX();
                 bulletY = character.getCharacter().getY() + CHARACTER_LENGTH;
@@ -125,18 +128,21 @@ public class Weapon {
                 plusx = 1;
                 plusy = -1;
                 rotate = -45;
+                flip = -1;
             } else if (character.getDir().equals(Character.direction.NW)) {
                 bulletX = character.getCharacter().getX();
                 bulletY = character.getCharacter().getY();
                 plusx = -1;
                 plusy = -1;
                 rotate = 45;
+                flip = -1;
             } else if (character.getDir().equals(Character.direction.SW)) {
                 bulletX = character.getCharacter().getX();
                 bulletY = character.getCharacter().getY() + CHARACTER_LENGTH;
                 plusx = -1;
                 plusy = 1;
                 rotate = -45;
+                flip = -1;
             } else if (character.getDir().equals(Character.direction.SE)) {
                 bulletX = character.getCharacter().getX() + Character.CHARACTER_WIDTH;
                 bulletY = character.getCharacter().getY() + CHARACTER_LENGTH;
@@ -144,11 +150,11 @@ public class Weapon {
                 plusy = 1;
                 rotate = 45;
             }
-            Bullet bullet = new Bullet(bulletType, bulletX, bulletY, plusx, plusy, rotate);
+            Bullet bullet = new Bullet(bulletType, bulletX, bulletY, plusx, plusy, rotate, flip);
             main.addBullet(bullet);
             main.root.getChildren().add(bullet.getBulletRect());
             lastShot = System.currentTimeMillis();
-            muzzle(main, bulletX, bulletY);
+            muzzle(main, bulletX, bulletY, rotate, flip);
             bullets--;
             main.getBulletLabel().textProperty().setValue(Double.toString(bullets).substring(0, Double.toString(bullets).length()-2));
         }
@@ -192,16 +198,19 @@ public class Weapon {
      * @param x coordinate x
      * @param y coordinate y
      */
-    public void muzzle(Main main, double x, double y)
+    public void muzzle(Main main, double x, double y, double rotate,double flip)
     {
         Rectangle rect = new Rectangle(10, 10);
+        rect.setFill(new ImagePattern(new Image("resources/misc/muzzel flash.png")));
         main.root.getChildren().add(rect);
+        rect.setRotate(rotate);
+        rect.setScaleX(flip);
         rect.setY(y-5);
         rect.setX(x-5);
         Timeline timeline = new Timeline();
         timeline.getKeyFrames().add(
                 new KeyFrame(
-                        Duration.millis(50),
+                        Duration.millis(30),
                         event -> {
                             main.root.getChildren().remove(rect);
                         }

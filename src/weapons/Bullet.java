@@ -2,6 +2,8 @@ package weapons;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -55,28 +57,39 @@ public class Bullet {
      * @param plusy - delta y for bullet moving
      * @param rotate - rotation of bullet
      */
-    public Bullet(bulletType bulType, double x, double y, double plusx, double plusy, double rotate) {
+    public Bullet(bulletType bulType, double x, double y, double plusx, double plusy, double rotate, double flip) {
         this.bulType = bulType;
 
         bulletRect = new Rectangle();
-        bulletRect.setHeight(2);
-        bulletRect.setWidth(5);
         if (bulType == bulletType.SEVEN_MM) {
             bulletRect.setFill(Paint.valueOf("blue"));
             damage = 10;
+            bulletRect.setFill(new ImagePattern(new Image("resources/misc/pistolbul.png")));
+            bulletRect.setHeight(3);
+            bulletRect.setWidth(11);
         } else if (bulType.equals(bulletType.NATO)) {
             damage = 35;
             bulletRect.setFill(Paint.valueOf("red"));
+            bulletRect.setFill(new ImagePattern(new Image("resources/misc/riflebul.png")));
+            bulletRect.setHeight(6);
+            bulletRect.setWidth(14);
         } else if (bulType.equals(bulletType.FORTY_FIVE)) {
             damage = 5;
             bulletRect.setFill(Paint.valueOf("cyan"));
+            bulletRect.setFill(new ImagePattern(new Image("resources/misc/subbul.png")));
+            bulletRect.setHeight(5);
+            bulletRect.setWidth(11);
         } else if (bulType.equals(bulletType.WINCHESTER)) {
             damage = 50;
             bulletRect.setFill(Paint.valueOf("purple"));
+            bulletRect.setFill(new ImagePattern(new Image("resources/misc/sniperbul.png")));
+            bulletRect.setHeight(4);
+            bulletRect.setWidth(14);
         }
         bulletRect.setX(x);
         bulletRect.setY(y);
         bulletRect.setRotate(rotate);
+        bulletRect.setScaleX(flip);
         this.plusx = plusx;
         this.plusy = plusy;
         fly();

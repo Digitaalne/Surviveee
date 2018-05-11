@@ -12,8 +12,10 @@ import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 import weapons.Bullet;
 import weapons.Weapon;
@@ -32,6 +34,14 @@ public class Main {
      * background of game
      */
     private ImageView backGround = new ImageView("resources/background.png");
+    /**
+     * UI - hearth/health
+     */
+    private ImageView hearth = new ImageView("resources/misc/hearth2.png");
+    /**
+     * Image of bullets
+     */
+    private ImageView bulletsImg = new ImageView("resources/misc/sniper bullets.png");
     /**
      * The label of characters health
      */
@@ -98,7 +108,7 @@ public class Main {
 
         root.setFocusTraversable(true);
         root.requestFocus();
-        character = new Character(3, 500, 500, new Weapon(Weapon.guns.BOLTACTION), Main.this);
+        character = new Character(3, 500, 500, new Weapon(Weapon.guns.SUBMACHINE), Main.this);
         root.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.UP && character.getCharacter().getY() > 0) {
                 character.setDeltas(character.getDx(), -1);
@@ -199,18 +209,27 @@ public class Main {
         timeline.play();
 
         //UI
-        pointsLabel.setFont(new Font("Racer", 50));
+        pointsLabel.setFont(new Font("Arial", 50));
+        charHealth.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD, 17));
+        bulletLabel.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD, 17));
+        bulletLabel.setTextFill(Paint.valueOf("red"));
+        charHealth.setTextFill(Paint.valueOf("red"));
         pointsLabel.textProperty().bind(points.asString());
+        bulletLabel.textProperty().setValue(Double.toString(character.getWeapon().getBullets())
+                .substring(0, Double.toString(character.getWeapon().getBullets()).length()-2));
         root.getChildren().addAll(backGround, character.getCharacter(),
-                pointsLabel, deathText, charHealth, bulletLabel, currentGun);
+                pointsLabel, deathText, charHealth, bulletLabel, currentGun, bulletsImg, hearth);
         deathText.setTranslateX(500);
         deathText.setTranslateY(500);
-        charHealth.setTranslateX(20);
-        bulletLabel.setLayoutX(500);
-        bulletLabel.setLayoutY(500);
+        charHealth.setTranslateX(230);
+        charHealth.setLayoutY(15);
+        bulletLabel.setLayoutX(325);
+        bulletLabel.setLayoutY(15);
         currentGun.setFill(character.getWeapon().getWeapRec().getFill());
-        currentGun.setY(500);
-        currentGun.setX(500);
+        currentGun.setX(380);
+        bulletsImg.setX(280);
+        hearth.setX(180);
+
     }
 
     /**
