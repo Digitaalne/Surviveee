@@ -8,6 +8,7 @@ import javafx.scene.shape.Rectangle;
 public class EnemyBoss extends Enemy {
     /**
      * creation of enemy pos
+     *
      * @param posx creation coordinate x
      * @param posy creation coordinate y
      */
@@ -33,23 +34,23 @@ public class EnemyBoss extends Enemy {
             Image img = new Image("resources/boss/SE.png");
             enemyRect.setFill(new ImagePattern(img));
             dir = Character.direction.SE;
-        } else if (dx == 1 && dy == 0 ) {
+        } else if (dx == 1 && dy == 0) {
             Image img = new Image("resources/boss/right.png");
             enemyRect.setFill(new ImagePattern(img));
             dir = Character.direction.E;
-        } else if (dx == 1 && dy == -1 ) {
+        } else if (dx == 1 && dy == -1) {
             Image img = new Image("resources/boss/NE true.png");
             enemyRect.setFill(new ImagePattern(img));
             dir = Character.direction.NE;
-        } else if (dx == 0 && dy == 1 ) {
+        } else if (dx == 0 && dy == 1) {
             Image img = new Image("resources/boss/down.png");
             enemyRect.setFill(new ImagePattern(img));
             dir = Character.direction.S;
-        } else if (dx == 0 && dy == -1 ) {
+        } else if (dx == 0 && dy == -1) {
             Image img = new Image("resources/boss/up.png");
             enemyRect.setFill(new ImagePattern(img));
             dir = Character.direction.N;
-        } else if (dx == -1 && dy == 1 ) {
+        } else if (dx == -1 && dy == 1) {
             Image img = new Image("resources/boss/SW.png");
             enemyRect.setFill(new ImagePattern(img));
             dir = Character.direction.SW;
@@ -65,9 +66,8 @@ public class EnemyBoss extends Enemy {
     }
 
     @Override
-    public void beginHit()
-    {
-        Image image= null;
+    public void beginHit() {
+        Image image = null;
         if (dir.equals(Character.direction.N)) {
             image = new Image("resources/boss/bloody/up_bloody.png");
         } else if (dir.equals(Character.direction.E)) {
@@ -91,7 +91,6 @@ public class EnemyBoss extends Enemy {
     /**
      * For testing purposes
      */
-    public EnemyBoss()
-    {
+    public EnemyBoss() {
     }
 }

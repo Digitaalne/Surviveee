@@ -17,7 +17,9 @@ public class Bullet {
     /**
      * different types of bullets
      */
-    public enum bulletType {NATO, WINCHESTER, SEVEN_MM, FORTY_FIVE}
+    public enum bulletType {
+        NATO, WINCHESTER, SEVEN_MM, FORTY_FIVE
+    }
 
     /**
      * Rectangle of bullet
@@ -49,13 +51,12 @@ public class Bullet {
     private Timeline timeline = new Timeline();
 
     /**
-     *
      * @param bulType - The bullet type
-     * @param x - x coordinate, where to create
-     * @param y - y coordinate, where to create
-     * @param plusx - delta x for bullet moving
-     * @param plusy - delta y for bullet moving
-     * @param rotate - rotation of bullet
+     * @param x       - x coordinate, where to create
+     * @param y       - y coordinate, where to create
+     * @param plusx   - delta x for bullet moving
+     * @param plusy   - delta y for bullet moving
+     * @param rotate  - rotation of bullet
      */
     public Bullet(bulletType bulType, double x, double y, double plusx, double plusy, double rotate, double flip) {
         this.bulType = bulType;
@@ -74,7 +75,7 @@ public class Bullet {
             bulletRect.setHeight(6);
             bulletRect.setWidth(14);
         } else if (bulType.equals(bulletType.FORTY_FIVE)) {
-            damage = 5;
+            damage = 7;
             bulletRect.setFill(Paint.valueOf("cyan"));
             bulletRect.setFill(new ImagePattern(new Image("resources/misc/subbul.png")));
             bulletRect.setHeight(5);
@@ -116,6 +117,7 @@ public class Bullet {
 
     /**
      * delete bullet after some Timeline has stopped
+     *
      * @param main Main class
      */
     public void deleteBulletAfterTime(Main main) {
@@ -126,6 +128,7 @@ public class Bullet {
 
     /**
      * Delete bullet after collision
+     *
      * @param main Main class
      */
     public void deleteBullet(Main main) {
@@ -136,7 +139,6 @@ public class Bullet {
     }
 
     /**
-     *
      * @return the damage of the bullet
      */
     public int getDamage() {
@@ -144,7 +146,6 @@ public class Bullet {
     }
 
     /**
-     *
      * @return Bullet Rectangle
      */
     public Rectangle getBulletRect() {

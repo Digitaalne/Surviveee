@@ -15,7 +15,7 @@ public class Character {
      */
     public static int CHARACTER_WIDTH = 50;
     /**
-     *  The length of the Character picture.
+     * The length of the Character picture.
      */
     public static int CHARACTER_LENGTH = 80;
 
@@ -27,14 +27,14 @@ public class Character {
 
 
     /**
-     *  8 possible directions where character can move.
+     * 8 possible directions where character can move.
      */
     public enum direction {
         N, NE, E, SE, S, SW, W, NW
     }
 
     /**
-     *  Current direction, where character is going.
+     * Current direction, where character is going.
      */
     private direction dir;
     /**
@@ -66,11 +66,11 @@ public class Character {
      * Instance of class Main
      */
     private Main main;
+
     /**
-     *
-     * @param speed - speed of character
-     * @param x Coordinate x
-     * @param y Coordinate y
+     * @param speed  - speed of character
+     * @param x      Coordinate x
+     * @param y      Coordinate y
      * @param weapon default Weapon you spawn with
      */
     public Character(int speed, int x, int y, Weapon weapon, Main main) {
@@ -98,7 +98,6 @@ public class Character {
     }
 
     /**
-     *
      * @param dx the delta x
      * @param dy the delta y
      */
@@ -149,10 +148,11 @@ public class Character {
 
     /**
      * Controls health displaying and death
-     * @param label - death text Label
+     *
+     * @param label       - death text Label
      * @param healthLabel - Health Label
      */
-    public void deathAndHealth(Label label, Label healthLabel, Main main){
+    public void deathAndHealth(Label label, Label healthLabel, Main main) {
         healthLabel.textProperty().setValue(Integer.toString(health));
         if (health <= 0) {
             label.textProperty().setValue("YOU DIED!");
@@ -163,6 +163,7 @@ public class Character {
 
     /**
      * Returns Delta x
+     *
      * @return double dx
      */
     public double getDx() {
@@ -174,7 +175,6 @@ public class Character {
     }
 
     /**
-     *
      * @return Character rectangle
      */
     public Rectangle getCharacter() {
@@ -182,7 +182,6 @@ public class Character {
     }
 
     /**
-     *
      * @return health
      */
     public int getHealth() {
@@ -190,7 +189,6 @@ public class Character {
     }
 
     /**
-     *
      * @param health - health of character
      */
     public void setHealth(int health) {
@@ -199,6 +197,7 @@ public class Character {
 
     /**
      * Calculates the middle point of character on X axis
+     *
      * @return double of character mid point on X axis
      */
     public double getCharacterMidX() {
@@ -207,6 +206,7 @@ public class Character {
 
     /**
      * Calculates the middle point of character on Y axis
+     *
      * @return double of character mid point on Y axis
      */
     public double getCharacterMidY() {
@@ -214,7 +214,6 @@ public class Character {
     }
 
     /**
-     *
      * @return current Weapon
      */
     public Weapon getWeapon() {
@@ -223,6 +222,7 @@ public class Character {
 
     /**
      * Set new weapon or add bullets if it is the same weapon, also update once the bullets
+     *
      * @param weapon new Weapon
      */
     public void setWeapon(Weapon weapon) {
@@ -232,7 +232,7 @@ public class Character {
             this.weapon = weapon;
         }
         main.getBulletLabel().textProperty().setValue(Double.toString(this.weapon.getBullets()).substring(0,
-                Double.toString(this.weapon.getBullets()).length()-2));
+                Double.toString(this.weapon.getBullets()).length() - 2));
         main.setCurrentGun(this.weapon.getWeapRec());
     }
 
@@ -248,7 +248,6 @@ public class Character {
 
 
     /**
-     *
      * @return dir Player direction
      */
     public direction getDir() {

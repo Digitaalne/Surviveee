@@ -9,6 +9,7 @@ import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -93,50 +94,42 @@ public class Main {
 
     /**
      * The instance of Main
+     *
      * @param mainMenu the instance of Main Menu
      */
-    public Main(MainMenu mainMenu)
-    {
+    public Main(MainMenu mainMenu) {
         this.mainMenu = mainMenu;
     }
 
     /**
      * Start procedure and the "brain"
+     *
      * @param hardness the difficulty level
      */
     public void starterino(int hardness) {
 
         root.setFocusTraversable(true);
         root.requestFocus();
-        character = new Character(3, 500, 500, new Weapon(Weapon.guns.SUBMACHINE), Main.this);
+        character = new Character(3, 500, 500, new Weapon(Weapon.guns.PISTOL), Main.this);
         root.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.UP && character.getCharacter().getY() > 0) {
                 character.setDeltas(character.getDx(), -1);
-            }
-            else if (event.getCode() == KeyCode.DOWN && character.getCharacter().getY() < 768-CHARACTER_LENGTH) {
+            } else if (event.getCode() == KeyCode.DOWN && character.getCharacter().getY() < 768 - CHARACTER_LENGTH) {
                 character.setDeltas(character.getDx(), 1);
-            }
-            else if (event.getCode() == KeyCode.LEFT && character.getCharacter().getX() > 0) {
+            } else if (event.getCode() == KeyCode.LEFT && character.getCharacter().getX() > 0) {
                 character.setDeltas(-1, character.getDy());
-            }
-            else if (event.getCode() == KeyCode.RIGHT && character.getCharacter().getX() < 1024-CHARACTER_WIDTH) {
+            } else if (event.getCode() == KeyCode.RIGHT && character.getCharacter().getX() < 1024 - CHARACTER_WIDTH) {
                 character.setDeltas(1, character.getDy());
             }
-            if(character.getCharacter().getX() < 0)
-            {
+            if (character.getCharacter().getX() < 0) {
                 character.getCharacter().setX(0);
+            } else if (character.getCharacter().getX() > 1024 - CHARACTER_WIDTH) {
+                character.getCharacter().setX(1024 - CHARACTER_WIDTH);
             }
-            else if(character.getCharacter().getX() > 1024-CHARACTER_WIDTH)
-            {
-                character.getCharacter().setX(1024-CHARACTER_WIDTH);
-            }
-            if(character.getCharacter().getY() < 0)
-            {
+            if (character.getCharacter().getY() < 0) {
                 character.getCharacter().setY(0);
-            }
-            else if(character.getCharacter().getY() > 768-CHARACTER_LENGTH)
-            {
-                character.getCharacter().setY(768-CHARACTER_LENGTH);
+            } else if (character.getCharacter().getY() > 768 - CHARACTER_LENGTH) {
+                character.getCharacter().setY(768 - CHARACTER_LENGTH);
             }
             if (event.getCode() == KeyCode.SPACE) {
                 character.getWeapon().shoot(Main.this, character);
@@ -205,6 +198,11 @@ public class Main {
         timeline.play();
 
         //UI
+        Button exit = new Button("X");
+        exit.setLayoutX(980);
+        root.getStylesheets().add("main/buttons.css");
+        exit.getStyleClass().add("buttons");
+        exit.setOnAction(event -> cleanUp());
         pointsLabel.setFont(new Font("Arial", 50));
         charHealth.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD, 17));
         bulletLabel.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD, 17));
@@ -212,9 +210,9 @@ public class Main {
         charHealth.setTextFill(Paint.valueOf("red"));
         pointsLabel.textProperty().bind(points.asString());
         bulletLabel.textProperty().setValue(Double.toString(character.getWeapon().getBullets())
-                .substring(0, Double.toString(character.getWeapon().getBullets()).length()-2));
+                .substring(0, Double.toString(character.getWeapon().getBullets()).length() - 2));
         root.getChildren().addAll(backGround, character.getCharacter(),
-                pointsLabel, deathText, charHealth, bulletLabel, currentGun, bulletsImg, hearth);
+                pointsLabel, deathText, charHealth, bulletLabel, currentGun, bulletsImg, hearth, exit);
         deathText.setTranslateX(500);
         deathText.setTranslateY(500);
         charHealth.setTranslateX(230);
@@ -238,45 +236,37 @@ public class Main {
         Enemy enemy = null;
         if (dir1 == 0) {
             //Up
-            if(zombieLevel < 9) {
+            if (zombieLevel < 9) {
                 enemy = new Enemy(ThreadLocalRandom.current().nextInt(-400, 1424),
                         ThreadLocalRandom.current().nextInt(-400, -100));
-            }
-            else
-            {
+            } else {
                 enemy = new EnemyBoss(ThreadLocalRandom.current().nextInt(-400, 1424),
                         ThreadLocalRandom.current().nextInt(-400, -100));
             }
         } else if (dir1 == 1) {
             //Down
-            if(zombieLevel<9) {
+            if (zombieLevel < 9) {
                 enemy = new Enemy(ThreadLocalRandom.current().nextInt(-400, 1424),
                         ThreadLocalRandom.current().nextInt(900, 1300));
-            }
-            else
-            {
+            } else {
                 enemy = new EnemyBoss(ThreadLocalRandom.current().nextInt(-400, 1424),
                         ThreadLocalRandom.current().nextInt(900, 1300));
             }
         } else if (dir1 == 2) {
             //Right
-            if(zombieLevel<9) {
+            if (zombieLevel < 9) {
                 enemy = new Enemy(ThreadLocalRandom.current().nextInt(1100, 1400),
                         ThreadLocalRandom.current().nextInt(-768, 768));
-            }
-            else
-            {
+            } else {
                 enemy = new EnemyBoss(ThreadLocalRandom.current().nextInt(1100, 1400),
                         ThreadLocalRandom.current().nextInt(-768, 768));
             }
         } else if (dir1 == 3) {
             //left
-            if(zombieLevel < 9) {
+            if (zombieLevel < 9) {
                 enemy = new Enemy(ThreadLocalRandom.current().nextInt(-300, -100),
                         ThreadLocalRandom.current().nextInt(-768, 768));
-            }
-            else
-            {
+            } else {
                 enemy = new EnemyBoss(ThreadLocalRandom.current().nextInt(-300, -100),
                         ThreadLocalRandom.current().nextInt(-768, 768));
             }
@@ -288,6 +278,7 @@ public class Main {
 
     /**
      * Checks collision for zombies
+     *
      * @param e - enemy instance
      */
     public void enemiesCollision(Enemy e) {
@@ -310,6 +301,7 @@ public class Main {
 
     /**
      * Zombies death procedure
+     *
      * @param enemy - enemy instance
      */
     public void zombieDeath(Enemy enemy) {
@@ -330,19 +322,17 @@ public class Main {
     /**
      * Wipes all the lists and info
      */
-    public void cleanUp()
-    {
-     droppedWeapons = new ArrayList<>();
-     bullets = new ArrayList<>();
-     enemies = new ArrayList<>();
-     points = new SimpleIntegerProperty(0);
-     root.getChildren().removeAll();
-     character.setHealth(10000);
-     mainMenu.cleanUp();
+    public void cleanUp() {
+        droppedWeapons = new ArrayList<>();
+        bullets = new ArrayList<>();
+        enemies = new ArrayList<>();
+        points = new SimpleIntegerProperty(0);
+        root.getChildren().removeAll();
+        character.setHealth(10000);
+        mainMenu.cleanUp();
     }
 
     /**
-     *
      * @return The active bullets list
      */
     public List<Bullet> getBullets() {
@@ -351,6 +341,7 @@ public class Main {
 
     /**
      * Add bullets to the list
+     *
      * @param bullet Bullet instance
      */
     public void addBullet(Bullet bullet) {
@@ -359,6 +350,7 @@ public class Main {
 
     /**
      * Adds dropped weapon the to list
+     *
      * @param weapon Weapon instance
      */
     public void addWeapon(Weapon weapon) {
@@ -367,6 +359,7 @@ public class Main {
 
     /**
      * Sets Bullet list
+     *
      * @param bullets Bullet List
      */
     public void setBullets(List<Bullet> bullets) {
@@ -374,7 +367,6 @@ public class Main {
     }
 
     /**
-     *
      * @return Main menu instance
      */
     public MainMenu getMainMenu() {
@@ -382,7 +374,6 @@ public class Main {
     }
 
     /**
-     *
      * @return label of Bullet amount
      */
     public Label getBulletLabel() {

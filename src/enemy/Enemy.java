@@ -19,11 +19,12 @@ public class Enemy {
     Rectangle enemyRect;
 
 
-
     /**
      * the type of zombie enum
      */
-    public enum Type {BASIC, BOSS}
+    public enum Type {
+        BASIC, BOSS
+    }
 
     /**
      * delta x of zombie
@@ -56,6 +57,7 @@ public class Enemy {
 
     /**
      * Creation of zombie
+     *
      * @param posx x coordinate
      * @param posy y coordinate
      */
@@ -84,6 +86,7 @@ public class Enemy {
 
     /**
      * Set deltas
+     *
      * @param dx x delta
      * @param dy y delta
      */
@@ -94,6 +97,7 @@ public class Enemy {
 
     /**
      * Picks direction towards character
+     *
      * @param x character Rectangle x
      * @param y Character Rectangle Y
      */
@@ -141,23 +145,23 @@ public class Enemy {
             Image img = new Image("resources/zombi/SE.png");
             enemyRect.setFill(new ImagePattern(img));
             dir = Character.direction.SE;
-        } else if (dx == 1 && dy == 0 ) {
+        } else if (dx == 1 && dy == 0) {
             Image img = new Image("resources/zombi/right.png");
             enemyRect.setFill(new ImagePattern(img));
             dir = Character.direction.E;
-        } else if (dx == 1 && dy == -1 ) {
+        } else if (dx == 1 && dy == -1) {
             Image img = new Image("resources/zombi/NE.png");
             enemyRect.setFill(new ImagePattern(img));
             dir = Character.direction.NE;
-        } else if (dx == 0 && dy == 1 ) {
+        } else if (dx == 0 && dy == 1) {
             Image img = new Image("resources/zombi/south.png");
             enemyRect.setFill(new ImagePattern(img));
             dir = Character.direction.S;
-        } else if (dx == 0 && dy == -1 ) {
+        } else if (dx == 0 && dy == -1) {
             Image img = new Image("resources/zombi/north.png");
             enemyRect.setFill(new ImagePattern(img));
             dir = Character.direction.N;
-        } else if (dx == -1 && dy == 1 ) {
+        } else if (dx == -1 && dy == 1) {
             Image img = new Image("resources/zombi/SW2.png");
             enemyRect.setFill(new ImagePattern(img));
             dir = Character.direction.SW;
@@ -175,9 +179,8 @@ public class Enemy {
     /**
      * Changes zombie Rectangle picture if he gets hit with bullets
      */
-    public void beginHit()
-    {
-        Image image= null;
+    public void beginHit() {
+        Image image = null;
         if (dir.equals(Character.direction.N)) {
             image = new Image("resources/zombi/zombi got shot/blody north.png");
         } else if (dir.equals(Character.direction.E)) {
@@ -200,6 +203,7 @@ public class Enemy {
 
     /**
      * Drops the weapon on the floor if luck is on players side
+     *
      * @param main Main class
      */
     public void deathDrop(Main main) {
@@ -227,7 +231,6 @@ public class Enemy {
     }
 
     /**
-     *
      * @return Enemy Rectangle
      */
 
@@ -236,7 +239,6 @@ public class Enemy {
     }
 
     /**
-     *
      * @return Zombie damage
      */
     public int getDamage() {
@@ -244,7 +246,6 @@ public class Enemy {
     }
 
     /**
-     *
      * @return Zombies health
      */
     public int getHealth() {
@@ -253,6 +254,7 @@ public class Enemy {
 
     /**
      * Sets zombies health to ...
+     *
      * @param health health amount
      */
     public void setHealth(int health) {
@@ -260,7 +262,6 @@ public class Enemy {
     }
 
     /**
-     *
      * @return zombie delta x
      */
     public double getDx() {
@@ -268,7 +269,6 @@ public class Enemy {
     }
 
     /**
-     *
      * @return zombie delta y
      */
     public double getDy() {
@@ -276,7 +276,6 @@ public class Enemy {
     }
 
     /**
-     *
      * @return Zombie Type
      */
     public Type getType() {
