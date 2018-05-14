@@ -4,6 +4,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.scene.image.ImageView;
+
 
 public class MainMenu extends Application {
     /**
@@ -22,26 +24,42 @@ public class MainMenu extends Application {
      * Game scene
      */
     private Scene scene2;
-
+    /**
+     * the background of the main menu
+     */
+    private ImageView backGround = new javafx.scene.image.ImageView("resources/mainMenu/mainMenuBackground.png");
     /**
      * Starts the game and shows the menu
      */
+
     @Override
     public void start(Stage stage){
-        Button ezBtn = new Button();
-        Button medBtn = new Button();
-        Button hardBtn = new Button();
+        Button ezBtn = new Button("EASY");
+        Button medBtn = new Button("MEDIUM");
+        Button hardBtn = new Button("EXTREME");
         Pane layout = new Pane();
-        layout.getChildren().addAll(ezBtn,medBtn,hardBtn);
-        ezBtn.textProperty().setValue("EASY");
-        medBtn.textProperty().setValue("MEDIUM");
-        hardBtn.textProperty().setValue("XTREME");
-        hardBtn.setLayoutY(64);
-        medBtn.setLayoutY(32);
+        layout.getChildren().addAll(backGround, ezBtn,medBtn,hardBtn);
+        hardBtn.setMinSize(260, 60);
+        hardBtn.setMaxSize(260, 60);
+        ezBtn.setMinSize(260, 60);
+        ezBtn.setMaxSize(260, 60);
+        medBtn.setMinSize(260, 60);
+        medBtn.setMaxSize(260, 60);
+        ezBtn.setLayoutX(382);
+        ezBtn.setLayoutY(377);
+        hardBtn.setLayoutX(382);
+        hardBtn.setLayoutY(559);
+        medBtn.setLayoutX(382);
+        medBtn.setLayoutY(468);
         this.stage = stage;
         Scene mainScene = new Scene(layout, 1024, 768);
         main = new Main(this);
         this.scene = mainScene;
+        scene.getStylesheets().add("main/buttons.css");
+        ezBtn.getStyleClass().add("buttons");
+        medBtn.getStyleClass().add("buttons");
+        hardBtn.getStyleClass().add("buttons");
+
         scene2 = new Scene(main.root, 1024, 768);
         stage.setResizable(false);
         ezBtn.setOnAction(e -> {
