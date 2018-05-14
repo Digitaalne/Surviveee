@@ -1,7 +1,7 @@
 Surviveee!!!!!
 ========
 
-Ülesanne on ellu jääda võimalikult kaua ja tappa kõik zombid ära. Iga natukese aja tagant tuleb teatud arv zombisid. Tekkivate Zombide arv kasvab ajaga.(nii öelda waves of zombies)
+Ülesanne on ellu jääda võimalikult kaua ja tappa kõik zombid ära. Iga natukese aja tagant tuleb teatud arv zombisid.
 
 Liikmed
 --------
@@ -13,12 +13,11 @@ Funktsionaalsus
 ---------------
 
 - Tegelast saab liigutada nooltega
-- Tegelane laseb hiire asukoha suunas.
 - tegelane saab surma, kui elud saavad otsa.
 - Erinevad relvad.
 - kindel arv kuule.
 - Zombid surres kukutavad relvi.
-- Bossid
+- Boss
 
 **AI**
 
@@ -34,20 +33,15 @@ Ekraanivaated
 Nupud: 
 
 - uus mäng
-- edetabel
-- välju mängust
+- difficulty nuppud
 
 Igaüks viib erinevasse vaatesse, vt järgmisi punkte.
 
 **Mäng**
 
-Mängu ala on piiratud seinaga. Zombid tekivad kindlatest asukohtadest mängu ala servast. Tegelane alustab platsi keskel.
+Mängu ala on piiratud seinaga. Zombid tekivad kindlatest asukohtadest mängu ala servast.
 
-Ekraani üleval paremal kuvatakse jooksvad punktid. 
-
-**Edetabel**
-
-Kuvatakse jooksev edetabel. Arvatavasti on mitu erinevat edetabelit vastavalt mängu tasemele (kerge, raske jms).
+Ekraani üleval vasakul kuvatakse jooksvad punktid.
 
 
 
@@ -61,7 +55,7 @@ Plaan
 - \8. nädal: tegelas objekt, liikumine, elud, laskmine
 - \9. nädal: seinad, mängutaseme kaart, kujundamine
 - \10. nädal: AI-ga alustamine, zombide liikumine
-- \11. nädal: testide kirjutamine, edetabel
+- \11. nädal: testide kirjutamine
 - \12. nädal: relvade valik
 - \13. nädal: menu koostamine ja viimased lihvid
 - \14. nädal: Esitamine??
