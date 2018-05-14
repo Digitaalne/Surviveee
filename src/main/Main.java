@@ -161,11 +161,7 @@ public class Main {
             public void handle(long now) {
                 character.move();
                 character.playerDirection();
-                try {
-                    character.deathAndHealth(deathText, charHealth, Main.this);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                character.deathAndHealth(deathText, charHealth, Main.this);
                 for (Enemy e : enemies) {
                     e.move();
                     e.zombieDirection();

@@ -11,6 +11,7 @@ import main.Main;
 
 
 import static character.Character.CHARACTER_LENGTH;
+import static character.Character.CHARACTER_WIDTH;
 
 public class Weapon {
     //private Bullet bullet;
@@ -57,7 +58,6 @@ public class Weapon {
             bulletType = Bullet.bulletType.SEVEN_MM;
             bullets = Double.POSITIVE_INFINITY;
             shootingSpeed = 500;
-            bullets = Double.POSITIVE_INFINITY;
             weapRec = new Rectangle(45, 34);
             weapRec.setFill(new ImagePattern(new Image("resources/weapons/45x34 pistol.png")));
         }
@@ -81,8 +81,8 @@ public class Weapon {
         else if( gun.equals(guns.SUBMACHINE))
         {
             bulletType = Bullet.bulletType.FORTY_FIVE;
-            shootingSpeed = 200;
-            bullets = 100;
+            shootingSpeed = 120;
+            bullets = 200;
             weapRec = new Rectangle(45, 40);
             weapRec.setFill(new ImagePattern(new Image("resources/weapons/45x40uzi.png")));
         }
@@ -96,65 +96,70 @@ public class Weapon {
     public void shoot(Main main, Character character)
     {
         double bulletX = 0;
-        double plusx = 0;
-        double plusy = 0;
+        double plusX = 0;
+        double plusY = 0;
         double bulletY = 0;
         double rotate = 0;
         double flip = 1;
+        double muzzleX = 0;
+        double muzzleY = 0;
         if(System.currentTimeMillis() - lastShot >= shootingSpeed && bullets > 0) {
             if (character.getDir().equals(Character.direction.N)) {
-                bulletX = character.getCharacterMidX();
-                bulletY = character.getCharacter().getY();
-                plusy = -1;
+                bulletX = character.getCharacter().getX()+CHARACTER_WIDTH-17;
+                bulletY = character.getCharacter().getY()+18;
+                plusY = -1;
                 rotate = 90;
                 flip = -1;
+
             } else if (character.getDir().equals(Character.direction.E)) {
                 bulletX = character.getCharacter().getX() + Character.CHARACTER_WIDTH;
-                bulletY = character.getCharacterMidY();
-                plusx = 1;
+                bulletY = character.getCharacterMidY()-9;
+                muzzleY = -3;
+                plusX = 1;
             } else if (character.getDir().equals(Character.direction.W)) {
-                bulletX = character.getCharacter().getX();
-                bulletY = character.getCharacterMidY();
-                plusx = -1;
+                bulletX = character.getCharacter().getX()-5;
+                bulletY = character.getCharacterMidY()-9;
+                plusX = -1;
                 flip = -1;
+                muzzleY = -3;
             } else if (character.getDir().equals(Character.direction.S)) {
-                bulletX = character.getCharacterMidX();
-                bulletY = character.getCharacter().getY() + CHARACTER_LENGTH;
-                plusy = 1;
+                bulletX = character.getCharacter().getX()+4;
+                bulletY = character.getCharacter().getY() + CHARACTER_LENGTH - 50;
+                plusY = 1;
                 rotate = 90;
             } else if (character.getDir().equals(Character.direction.NE)) {
-                bulletX = character.getCharacter().getX() + Character.CHARACTER_WIDTH;
-                bulletY = character.getCharacter().getY();
-                plusx = 1;
-                plusy = -1;
+                bulletX = character.getCharacter().getX() + Character.CHARACTER_WIDTH + 3;
+                bulletY = character.getCharacter().getY() + 3;
+                plusX = 1;
+                plusY = -1;
                 rotate = -45;
                 flip = -1;
             } else if (character.getDir().equals(Character.direction.NW)) {
-                bulletX = character.getCharacter().getX();
-                bulletY = character.getCharacter().getY();
-                plusx = -1;
-                plusy = -1;
+                bulletX = character.getCharacter().getX()-12;
+                bulletY = character.getCharacter().getY()+3;
+                plusX = -1;
+                plusY = -1;
                 rotate = 45;
                 flip = -1;
             } else if (character.getDir().equals(Character.direction.SW)) {
-                bulletX = character.getCharacter().getX();
-                bulletY = character.getCharacter().getY() + CHARACTER_LENGTH;
-                plusx = -1;
-                plusy = 1;
+                bulletX = character.getCharacter().getX()+8;
+                bulletY = character.getCharacter().getY() + CHARACTER_LENGTH - 28;
+                plusX = -1;
+                plusY = 1;
                 rotate = -45;
                 flip = -1;
             } else if (character.getDir().equals(Character.direction.SE)) {
-                bulletX = character.getCharacter().getX() + Character.CHARACTER_WIDTH;
-                bulletY = character.getCharacter().getY() + CHARACTER_LENGTH;
-                plusx = 1;
-                plusy = 1;
+                bulletX = character.getCharacter().getX() + Character.CHARACTER_WIDTH-10;
+                bulletY = character.getCharacter().getY() + CHARACTER_LENGTH-20;
+                plusX = 1;
+                plusY = 1;
                 rotate = 45;
             }
-            Bullet bullet = new Bullet(bulletType, bulletX, bulletY, plusx, plusy, rotate, flip);
+            Bullet bullet = new Bullet(bulletType, bulletX, bulletY, plusX, plusY, rotate, flip);
             main.addBullet(bullet);
             main.root.getChildren().add(bullet.getBulletRect());
             lastShot = System.currentTimeMillis();
-            muzzle(main, bulletX, bulletY, rotate, flip);
+            muzzle(main, bulletX, bulletY, rotate, flip, muzzleX, muzzleY);
             bullets--;
             main.getBulletLabel().textProperty().setValue(Double.toString(bullets).substring(0, Double.toString(bullets).length()-2));
         }
@@ -198,22 +203,20 @@ public class Weapon {
      * @param x coordinate x
      * @param y coordinate y
      */
-    public void muzzle(Main main, double x, double y, double rotate,double flip)
+    public void muzzle(Main main, double x, double y, double rotate, double flip, double muzzleX, double muzzleY)
     {
         Rectangle rect = new Rectangle(10, 10);
         rect.setFill(new ImagePattern(new Image("resources/misc/muzzel flash.png")));
         main.root.getChildren().add(rect);
         rect.setRotate(rotate);
         rect.setScaleX(flip);
-        rect.setY(y-5);
-        rect.setX(x-5);
+        rect.setY(y+muzzleY);
+        rect.setX(x+muzzleX);
         Timeline timeline = new Timeline();
         timeline.getKeyFrames().add(
                 new KeyFrame(
                         Duration.millis(30),
-                        event -> {
-                            main.root.getChildren().remove(rect);
-                        }
+                        event -> main.root.getChildren().remove(rect)
                 )
         );
         timeline.setCycleCount(1);

@@ -151,9 +151,8 @@ public class Character {
      * Controls health displaying and death
      * @param label - death text Label
      * @param healthLabel - Health Label
-     * @throws InterruptedException
      */
-    public void deathAndHealth(Label label, Label healthLabel, Main main) throws InterruptedException {
+    public void deathAndHealth(Label label, Label healthLabel, Main main){
         healthLabel.textProperty().setValue(Integer.toString(health));
         if (health <= 0) {
             label.textProperty().setValue("YOU DIED!");

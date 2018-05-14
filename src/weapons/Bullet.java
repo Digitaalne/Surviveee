@@ -137,14 +137,6 @@ public class Bullet {
 
     /**
      *
-     * @return the bullet's Timeline
-     */
-    public Timeline getTimeline() {
-        return timeline;
-    }
-
-    /**
-     *
      * @return the damage of the bullet
      */
     public int getDamage() {

@@ -1,5 +1,4 @@
 package character;
-import main.Main;
 import org.junit.jupiter.api.Test;
 import weapons.Weapon;
 import static org.junit.jupiter.api.Assertions.*;
