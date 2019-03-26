@@ -61,8 +61,3 @@ Plaan
 - \14. nädal: Esitamine??
 - \15. nädal: Lihvimine
 - \16. nädal: Esitamine??
-
-Punktisoov
-----------
-
-8 punkti
