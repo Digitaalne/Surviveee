@@ -7,6 +7,7 @@ Liikmed
 --------
 
 Jaspar - Visuaal  
+
 Jarek - Kood
 
 Funktsionaalsus
