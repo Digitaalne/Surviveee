@@ -6,7 +6,7 @@ Surviveee!!!!!
 Liikmed
 --------
 
-Jaspar - Visuaal
+Jaspar - Visuaal  
 Jarek - Kood
 
 Funktsionaalsus
