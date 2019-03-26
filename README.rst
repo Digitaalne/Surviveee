@@ -6,8 +6,8 @@ Surviveee!!!!!
 Liikmed
 --------
 
-Jaspar Jajaan
-Jarek Jajann
+Jaspar - Visuaal
+Jarek - Kood
 
 Funktsionaalsus
 ---------------
